@@ -53,6 +53,8 @@
                     @foreach ($sampleTypes as $key => $value)
                     <option value="{{ $key }}">{{ $value }}</option>
                     @endforeach
+
+                    
                 </select>
                 @error('sample_type') <span class="text-danger">{{ $message }}</span> @enderror
             </div>
