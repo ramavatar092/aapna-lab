@@ -1,0 +1,1 @@
+{"version":1,"defects":[],"times":{"Tests\\Unit\\ExampleTest::test_that_true_is_true":0.008,"Tests\\Feature\\Api\\AuthenticationTest::test_register_new_user":0.234}}
