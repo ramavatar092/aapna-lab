@@ -194,6 +194,7 @@
                                         </thead>
                                         <tbody>
                                             <!-- loop for sub array -->
+                                          
                                             <tr>
                                                 <td>{{$subTest_name}}</td>
                                                 <td>{{$field}}</td>
@@ -214,18 +215,7 @@
                                                     </button>
                                                 </td>
                                             </tr>
-                                            <tr>
-                                                <td>asdgbvf</td>
-                                                <td>numeric</td>
-                                                <td>%</td>
-                                                <td>20 - 40</td>
-                                                <td>-</td>
-                                                <td>
-                                                    <button class="btn btn-sm">
-                                                        <i class="bx bx-trash text-black"></i>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            
                                         </tbody>
                                     </table>
                                 </td>
@@ -339,11 +329,12 @@
                                 wire:model.live="subTestTitle"
                                 class="form-control me-2"
                                 style="max-width: 300px;" />
-                            <div class="d-flex mt-2 justify-content-end">
-                                <button class="btn btn-primary btn-sm d-flex align-items-center">
-                                    <i class="bx bx-pencil me-6"></i> Save
-                                </button>
-                            </div>
+
+                                <div class="d-flex mt-2 justify-content-end">
+                                    <button class="btn btn-primary btn-sm d-flex align-items-center">
+                                        <i class="bx bx-pencil me-6"></i> Save
+                                    </button>
+                                </div>
                         </div>
 
 
@@ -421,7 +412,7 @@
                         </div>
                         @endif
 
-                        <button type="button" class="btn btn-primary mt-2" wire:click="addDataToArray">add field</button>
+                        <button type="button" class="btn btn-primary mt-2" wire:click="dataSubTest">Add Sub Field</button>
 
                     </div>
                 </div>

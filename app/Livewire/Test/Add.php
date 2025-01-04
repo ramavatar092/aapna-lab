@@ -37,7 +37,7 @@ class Add extends Component
     public $tests;
 
     //making variables for subtest
-  
+
     public $subTestTitle;
     public $subTest_name;
     public $subTest_method;
@@ -46,6 +46,9 @@ class Add extends Component
     public $openSubTest = false;
 
     public $dataCollection = [];
+    public $dataSubTest = [];
+
+    public $arrayIndexId;
     public $sampleTypes = [
         'Blood' => 'Blood',
         'Urine' => 'Urine',
@@ -90,13 +93,45 @@ class Add extends Component
         $this->resetTablefield();
         $this->dispatch('success', __('Field added successfully'));
     }
+    public function dataSubTest()
+    {
+        if ($this->arrayIndexId === null || !isset($this->dataCollection[$this->arrayIndexId])) {
+            $this->dispatch('error', __('Invalid parent field selected.'));
+            return;
+        }
+
+        $subTestData = [
+            'subTest_name' => $this->subTest_name,
+            'subTest_method' => $this->subTest_method,
+            'field' => $this->field,
+            'unit' => $this->unit,
+            'range_min' => $this->range_min,
+            'range_max' => $this->range_max,
+            'range_operation' => $this->range_operation,
+            'range_value' => $this->range_value,
+            'multiple_range' => $this->multiple_range,
+            'custom_default' => $this->custom_default,
+            'custom_option' => $this->custom_option,
+        ];
+
+        // Add the sub-test data to the parent field
+        $this->dataCollection[$this->arrayIndexId]['sub_test'][] = $subTestData;
+
+        dd($this->dataCollection);
+        // Reset fields and notify the user
+        $this->resetTablefield();
+        $this->dispatch('success', __('Sub-test added successfully!'));
+    }
+
     public function subTest($id)
     {
+        $this->arrayIndexId = $id;
+
         $this->openSubTest = !$this->openSubTest;
         $data = $this->dataCollection[$id];
 
+
         $this->subTestTitle = $data['test_name'];
-       
     }
     public function resetTablefield()
     {
@@ -117,7 +152,7 @@ class Add extends Component
             'subTest_name',
             'subTest_method'
 
-        
+
         ]);
     }
 
