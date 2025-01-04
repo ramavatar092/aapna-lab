@@ -66,6 +66,12 @@
                 'children' => [],
             ],
             [
+                    'name' => 'Enter and verify',
+                    'icon' => 'bx bx-user',
+                    'route' => 'admin.enterverify',
+                    'children' => [],
+            ],
+            [
                 'name' => 'Department',
                 'icon' => 'bx bx-calendar',
                 'route' => 'admin.departments',
