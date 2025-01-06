@@ -5,15 +5,15 @@ namespace App\Livewire\Test;
 use App\Models\Department;
 use App\Models\Package;
 use App\Models\Test;
-use App\Models\TestMethod;
 use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Illuminate\Support\Str;
-use Livewire\Attributes\On;
+
 
 class Add extends Component
 {
     public $departments;
+   
     public $dept_id;
     public $title;
     public $amount;
@@ -22,33 +22,27 @@ class Add extends Component
     public $sample_type;
     public $age;
     public $suffix;
-    public $type = 'single field';
-    public $test_name;
-    public $test_method = null;
-    public $field = 'numeric';
-    public $unit;
-    public $range_min;
-    public $range_max;
-    public $range_operation;
-    public $range_value;
-    public $multiple_range;
-    public $custom_default;
-    public $custom_option;
-    public $tests;
 
-    //making variables for subtest
+    protected $rules = [
+        'dept_id' => 'required|exists:departments,id',
+        'title' => 'required|string|max:255',
+        'amount' => 'required|numeric|min:0',
+        'code' => 'required|string|max:255|unique:tests,code',
+        'gender' => 'required|in:male,female,other',
+        'sample_type' => 'required|string',
+        'age' => 'required|in:default,all',
+        'suffix' => 'nullable|string|max:50',
+    ];
 
-    public $subTestTitle;
-    public $subTest_name;
-    public $subTest_method;
+    protected $messages = [
+        'dept_id.required' => 'The department is required.',
+        'title.required' => 'The title is required.',
+        'amount.required' => 'The amount is required.',
+        'code.required' => 'The code is required.',
+        'sample_type.required' => 'The sample type is required.',
+        'age.required' => 'The age selection is required.',
+    ];
 
-
-    public $openSubTest = false;
-
-    public $dataCollection = [];
-    public $dataSubTest = [];
-
-    public $arrayIndexId;
     public $sampleTypes = [
         'Blood' => 'Blood',
         'Urine' => 'Urine',
@@ -63,106 +57,10 @@ class Add extends Component
         'Biopsy' => 'Biopsy',
         'Other' => 'Other'
     ];
-
-
     public function mount()
     {
         $this->departments = Department::get();
     }
-
-
-
-    public function addDataToArray()
-    {
-        $this->dataCollection[] = [
-            'type' => $this->type,
-            'test_name' => $this->test_name,
-            'test_method' => $this->test_method,
-            'field' => $this->field,
-            'unit' => $this->unit,
-            'range_min' => $this->range_min,
-            'range_max' => $this->range_max,
-            'range_operation' => $this->range_operation,
-            'range_value' => $this->range_value,
-            'multiple_range' => $this->multiple_range,
-            'custom_default' => $this->custom_default,
-            'custom_option' => $this->custom_option,
-            'sub_test' => [],
-        ];
-
-        $this->resetTablefield();
-        $this->dispatch('success', __('Field added successfully'));
-    }
-    public function dataSubTest()
-    {
-        if ($this->arrayIndexId === null || !isset($this->dataCollection[$this->arrayIndexId])) {
-            $this->dispatch('error', __('Invalid parent field selected.'));
-            return;
-        }
-
-        $subTestData = [
-            'subTest_name' => $this->subTest_name,
-            'subTest_method' => $this->subTest_method,
-            'field' => $this->field,
-            'unit' => $this->unit,
-            'range_min' => $this->range_min,
-            'range_max' => $this->range_max,
-            'range_operation' => $this->range_operation,
-            'range_value' => $this->range_value,
-            'multiple_range' => $this->multiple_range,
-            'custom_default' => $this->custom_default,
-            'custom_option' => $this->custom_option,
-        ];
-
-        // Add the sub-test data to the parent field
-        $this->dataCollection[$this->arrayIndexId]['sub_test'][] = $subTestData;
-
-        dd($this->dataCollection);
-        // Reset fields and notify the user
-        $this->resetTablefield();
-        $this->dispatch('success', __('Sub-test added successfully!'));
-    }
-
-    public function subTest($id)
-    {
-        $this->arrayIndexId = $id;
-
-        $this->openSubTest = !$this->openSubTest;
-        $data = $this->dataCollection[$id];
-
-
-        $this->subTestTitle = $data['test_name'];
-    }
-    public function resetTablefield()
-    {
-        $this->reset([
-            'type',
-            'test_name',
-            'test_method',
-            'field',
-            'unit',
-            'range_min',
-            'range_max',
-            'range_operation',
-            'range_value',
-            'multiple_range',
-            'custom_default',
-            'custom_option',
-            'subTestTitle',
-            'subTest_name',
-            'subTest_method'
-
-
-        ]);
-    }
-
-    public function removeDataFromArray($index)
-    {
-        unset($this->dataCollection[$index]);
-        $this->dispatch('success', __('Field removed successfully'));
-    }
-
-
     public function store()
     {
 
@@ -173,8 +71,18 @@ class Add extends Component
         $test = Test::create($validatedData);
 
 
-        $this->resetData();
-        $this->dispatch('reset-modal');
+    
+        $this->reset([
+            'dept_id',
+            'title',
+            'amount',
+            'code',
+            'gender',
+            'sample_type',
+            'age',
+            'suffix',
+        ]);
+        $this->dispatch('reset-modal-test');
         $this->dispatch('refresh-test');
         $this->dispatch('success', __('Test created successfully!'));
         return redirect()->route('admin.tests');
@@ -194,12 +102,9 @@ class Add extends Component
 
 
     }
-    #[On('refresh-testmethod')]
+
     public function render()
     {
-        $testmethod = TestMethod::all();
-        return view('livewire.test.add', [
-            'testmethods' => $testmethod
-        ]);
+        return view('livewire.test.add');
     }
 }

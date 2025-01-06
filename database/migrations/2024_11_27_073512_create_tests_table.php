@@ -22,7 +22,6 @@ return new class extends Migration
             $table->string('sample_type')->nullable();
             $table->string('age')->nullable();
             $table->string('suffix')->nullable();
-         
             $table->string('created_by')->nullable();
             $table->string('updated_by')->nullable();
             $table->string('deleted_by')->nullable();

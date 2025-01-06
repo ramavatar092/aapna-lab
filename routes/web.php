@@ -4,7 +4,7 @@ use App\Livewire\PatientRegistration\Add as AllPatientRegistration;
 use App\Livewire\PatientRegistration\PatientList\All as AllPatientList;
 use App\Livewire\PatientRegistration\PatientList\Patientdetail as AllPatientDetail;
 use App\Livewire\Test\All as AllTest;
-use App\Livewire\Test\Add as AddTest;
+use App\Livewire\Test\A as AddTest;
 use App\Livewire\Test\Update as UpdateTest;
 use App\Livewire\Package\All as AllPackage;
 
