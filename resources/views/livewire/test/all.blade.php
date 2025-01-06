@@ -44,10 +44,17 @@
                             <div class="d-flex justify-content-center gap-2">
                                 <button
                                     class="btn btn-sm"
-                                     type="button"  data-bs-toggle="modal" data-bs-target="#UpdateTestModal"
+                                    type="button" data-bs-toggle="modal" data-bs-target="#UpdateTestModal"
                                     wire:click="$dispatch('update-test',{id : {{ $test->id }} })"
                                     title="update"> <i class="bx bx-edit-alt"></i>
-                                </>
+                                </button>
+
+                                <a href={{route('admin.testfeature',$test->id)}} class="btn btn-sm" title="view"
+                                    type="button" 
+>
+                                    <i class="bi bi-arrows-fullscreen"></i>
+
+                                </a>
 
                                 <a
                                     class="btn btn-sm"
@@ -76,6 +83,7 @@
 
         <livewire:test.add />
         <livewire:test.update />
+        <livewire:test.test-feature />
 
     </div>
 

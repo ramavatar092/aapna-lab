@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class SubTest extends Model
+class TestFeature extends Model
 {
     //
 }
