@@ -1,4 +1,5 @@
-<!-- Add Test Modal -->
+<div>
+    <!-- Add Test Modal -->
 <div wire:ignore.self class="modal fade" id="addTestModal" tabindex="-1" aria-labelledby="addTestModalLabel" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -141,4 +142,6 @@
         });
     </script>
     @endscript
+</div>
+
 </div>

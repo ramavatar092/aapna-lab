@@ -5,7 +5,7 @@ use App\Livewire\PatientRegistration\PatientList\All as AllPatientList;
 use App\Livewire\PatientRegistration\PatientList\Patientdetail as AllPatientDetail;
 use App\Livewire\Test\All as AllTest;
 use App\Livewire\Test\A as AddTest;
-use App\Livewire\Test\Update as UpdateTest;
+
 use App\Livewire\Package\All as AllPackage;
 
 use App\Livewire\Dashboard\Dashboard as Dashboard;
@@ -38,8 +38,8 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('patient-list/{id}',AllPatientDetail::class)->name('admin.patientdetails');
     Route::get('test',AllTest::class)->name('admin.tests');
     Route::get('/enterverify',AllEnterVerify::class)->name('admin.enterverify');
-    Route::get('test/new-test',AddTest::class)->name('admin.testadd');
-    Route::get('test/update/{id}',UpdateTest::class)->name('admin.testupdate');
+    // Route::get('test/new-test',AddTest::class)->name('admin.testadd');
+    // Route::get('test/update/{id}',UpdateTest::class)->name('admin.testupdate');
     Route::get('department', AllDepartment::class)->name('admin.departments');
     Route::get('Package',AllPackage::class)->name('admin.packages');
     Route::get('labMangement',AllLabMangement::class)->name('admin.labMangement');

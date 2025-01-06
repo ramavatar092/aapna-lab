@@ -22,19 +22,9 @@ class Update extends Component
     public $sample_type;
     public $age;
     public $suffix;
-    public $type;
-    public $test_name;
-    public $test_method =null;
-    public $field='numeric';
-    public $unit;
     public $id;
-    public $range_min;
-    public $range_max;
-    public $range_operation;
-    public $range_value;
-    public $multiple_range;
-    public $custom_default;
-    public $custom_option;
+ 
+   
     public $sampleTypes = [
         'Blood' => 'Blood',
         'Urine' => 'Urine',
@@ -49,10 +39,16 @@ class Update extends Component
         'Biopsy' => 'Biopsy',
         'Other' => 'Other'
     ];
+    public function mount(){
+        $this->departments = Department::get();
+    }
 
-    public function mount($id)
+    #[On('update-test')]
+    public function edit($id)
     {
+       
         $test = Test::findOrFail($id);
+   
         $this->id           = $id;
         $this->dept_id      = $test->dept_id;
         $this->title        = $test->title;
@@ -62,22 +58,10 @@ class Update extends Component
         $this->sample_type  = $test->sample_type;
         $this->age          = $test->age;
         $this->suffix       = $test->suffix;
-        $this->type         = $test->type;
-        $this->test_name    = $test->test_name;
-        $this->test_method  = $test->test_method;
-        $this->field        = $test->field;
-        $this->unit         = $test->unit;
-        $this->range_min    = $test->range_min;
-        $this->range_max    = $test->range_max;
-        $this->range_operation=$test->range_operation;
-        $this->range_value=$test->range_value;
-
-        $this->departments = Department::get();
+       
     }
-    public function resetTable(){
 
-        $this->test_method=null;
-    }
+  
 
     public function updatedTitle(){
         $this->generateUniqueCode(); // i am calling function on changing the title on update
@@ -127,13 +111,7 @@ class Update extends Component
             'sample_type',
             'age',
             'suffix',
-            'type',
-            'test_name',
-            'test_method',
-            'field',
-            'unit',
-            'range_min',
-            'range_max'
+            
         ]);
     }
 
@@ -149,21 +127,14 @@ class Update extends Component
             'sample_type'  => $this->sample_type,
             'age'          => $this->age,
             'suffix'       => $this->suffix,
-            'type'         => $this->type,
-            'test_name'    => $this->test_name,
-            'test_method'  => $this->test_method,
-            'field'        => $this->field,
-            'unit'         => $this->unit,
-            'range_min'    => $this->range_min,
-            'range_max'    => $this->range_max,
             'updated_by'   => Auth::id(),
         ]);
 
         $this->resetData();
-        $this->dispatch('reset-modal');
+        $this->dispatch('reset-modal-test');
         $this->dispatch('refresh-test');
         $this->dispatch('success', __('Test updated successfully!'));
-        return redirect()->route('admin.tests');
+       
     }
 
     public function render()

@@ -42,12 +42,13 @@
                         <td>{{ $test->created_at->format('d-m-Y') }}</td>
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
-                                <a
+                                <button
                                     class="btn btn-sm"
-                                    href="{{route('admin.testupdate',$test->id)}}"
-                                    title="Edit">
-                                    <i class="bx bx-edit-alt"></i>
-                                </a>
+                                     type="button"  data-bs-toggle="modal" data-bs-target="#UpdateTestModal"
+                                    wire:click="$dispatch('update-test',{id : {{ $test->id }} })"
+                                    title="update"> <i class="bx bx-edit-alt"></i>
+                                </>
+
                                 <a
                                     class="btn btn-sm"
                                     wire:click="$dispatch('delete-prompt',{id : {{ $test->id }} })"
@@ -74,6 +75,7 @@
 
 
         <livewire:test.add />
+        <livewire:test.update />
 
     </div>
 
