@@ -80,7 +80,15 @@
                         <div class="mb-3">
                             <label class="form-label fw-bold">Range:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" wire:model.live="range_operation" placeholder="Operation">
+                                <select class="form-control" wire:model.live="range_operation">
+                                    <option value="null"  selected> Operation</option>
+                                    <option value="<=">less than equal to</option>
+                                    <option value="<">less than</option>
+                                    <option value=">=">greater than equal to</option>
+                                    <option value=">">greater than</option>
+                                    <option value="==">equal to</option>
+                                </select>
+
                                 <input type="text" class="form-control" wire:model.live="range_value" placeholder="Value">
                             </div>
                             <span class="text-danger small d-block mt-1">@error('range_operation') {{ $message }} @enderror</span>
@@ -119,6 +127,7 @@
                     <table class="table table-hover table-striped mb-0">
                         <thead>
                             <tr>
+                                <th></th>
                                 <th>#</th>
                                 <th>Name</th>
                                 <th>Field</th>
@@ -131,15 +140,24 @@
                         <tbody>
                             @foreach ($testfeature as $key=> $test)
                             <tr>
+                                <td>
+                                    @if ($test->type == 'multiple field')
+                                    <button wire:click="$dispatch('getid',{id:{{$test->id}}})" data-bs-toggle="modal" data-bs-target="#subTestModal" class="btn btn-sm" wire:click="resetFields">
+                                        <i class="bi bi-arrows-fullscreen"></i>
+                                    </button>
+                                    @endif
+                                </td>
+                              
                                 <td>{{$key+1}}</td>
+
                                 <td>{{$test->test_name}}</td>
                                 <td>{{$test->field}}</td>
                                 <td>{{$test->unit}}</td>
                                 <td>
                                     @if ($test->field== 'numeric')
                                     {{$test->range_min}}-{{$test->range_max}}
-                                    @elseif($field == 'numeric unbound')
-                                    opertation:{{$test->field}} value:{{$test->range_value}}
+                                    @elseif($test->field == 'numeric unbound')
+                                    {{$test->range_operation}} {{$test->range_value}}
                                     @elseif($test->field == 'multiple range')
                                     {{$test->multiple_range}}
                                     @endif
@@ -147,11 +165,7 @@
                                 <td>-</td>
                                 <td>
                                     <div class="d-flex justify-content-center gap-2">
-                                        @if ($test->type == 'multiple field')
-                                            <button wire:click="$dispatch('getid',{id:{{$test->id}}})" data-bs-toggle="modal" data-bs-target="#subTestModal" class="btn btn-sm" wire:click="resetFields">
-                                                <i class="bi bi-arrows-fullscreen"></i>
-                                            </button>
-                                        @endif
+
                                         <button class="btn btn-sm" wire:click="removeData({{$test->id}})">
                                             <i class="bx bx-trash text-black"></i>
                                         </button>
@@ -163,6 +177,7 @@
                             @if ($test_name!=null || $test_method!=null )
                             <tr>
                                 <td></td>
+                                <td>1</td>
                                 <td>{{$test_name}}</td>
                                 <td>{{$field}}</td>
                                 <td>{{$unit}}</td>
@@ -170,7 +185,7 @@
                                     @if ($field== 'numeric')
                                     {{$range_min}}-{{$range_max}}
                                     @elseif($field == 'numeric unbound')
-                                    opertation:{{$range_operation}} value:{{$range_value}}
+                                    {{$range_operation}} {{$range_value}}
                                     @elseif($field == 'multiple range')
                                     {{$multiple_range}}
                                     @endif
@@ -193,6 +208,6 @@
             </div>
         </div>
         <livewire:test.testmethod />
-        <livewire:test.sub-test-feature/>
+        <livewire:test.sub-test-feature />
     </div>
 </div>

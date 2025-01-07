@@ -69,7 +69,14 @@
                         <div class="col-md-4">
                             <label for="rangeMin" class="form-label mt-2">Range:</label>
                             <div class="input-group">
-                                <input type="text" class="form-control" wire:model.live="range_operation" id="operation" placeholder="Operation">
+                                <select class="form-control" wire:model.live="range_operation">
+                                    <option value="null" selected> Operation</option>
+                                    <option value="<=">less than equal to</option>
+                                    <option value="<">less than </option>
+                                    <option value=">=">greater than equal to</option>
+                                    <option value=">">greater than</option>
+                                    <option value="==">equal to</option>
+                                </select>
                                 <input type="text" class="form-control" wire:model.live="range_value" id="value" placeholder="Value">
                             </div>
                             @error('range_operation') <span class="text-danger">{{ $message }}</span> @enderror
@@ -123,14 +130,14 @@
                                         @if ($test->field == 'numeric')
                                         {{ $test->range_min }}-{{ $test->range_max }}
                                         @elseif($field == 'numeric unbound')
-                                        operation: {{ $test->field }} value: {{ $test->range_value }}
+                                         {{ $test->field }} {{ $test->range_value }}
                                         @elseif($field == 'multiple range')
                                         {{ $test->multiple_range }}
                                         @endif
                                     </td>
                                     <td>-</td>
                                     <td>
-                                        <button class="btn btn-sm " wire:click="removeData({{ $test->id }})">
+                                        <button class="btn btn-sm " wire:click="destroy({{ $test->id }})">
                                             <i class="bx bx-trash text-black"></i>
                                         </button>
                                     </td>
@@ -146,7 +153,7 @@
                                         @if ($field == 'numeric')
                                         {{ $range_min }}-{{ $range_max }}
                                         @elseif($field == 'numeric unbound')
-                                        operation: {{ $range_operation }} value: {{ $range_value }}
+                                         {{ $range_operation }}  {{ $range_value }}
                                         @elseif($field == 'multiple range')
                                         {{ $multiple_range }}
                                         @endif
