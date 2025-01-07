@@ -104,7 +104,7 @@ class SubTestFeature extends Component
     #[On('reset-sub-test-feature')]
     public function render()
     {
-        $subfeature = TestFeature::where('parent_id',$this->parent_id)->where('parent_id', '!=', null)->get();
+        $subfeature = TestFeature::where('parent_id',$this->parent_id)->get();
         $testmethod = TestMethod::all();
      
 
