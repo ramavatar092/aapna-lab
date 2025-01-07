@@ -22,7 +22,6 @@
                     <tr>
                         <th>#</th>
                         <th>{{ trans('cruds.test.fields.title') }}</th>
-                        <th>{{ trans('cruds.test.fields.test_method') }}</th>
                         <th>{{ trans('cruds.test.fields.gender') }}</th>
                         <th>{{ trans('cruds.test.fields.age') }}</th>
                         <th>{{ trans('cruds.test.fields.created_at') }}</th>
@@ -34,7 +33,6 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $test->title }}</td>
-
                         <td>{{ ucwords($test->gender) }}</td>
                         <td>{{ $test->age }}</td>
                         <td>{{ $test->created_at->format('d-m-Y') }}</td>

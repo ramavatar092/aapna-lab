@@ -81,7 +81,7 @@
                             <label class="form-label fw-bold">Range:</label>
                             <div class="input-group">
                                 <select class="form-control" wire:model.live="range_operation">
-                                    <option value="null"  selected> Operation</option>
+                                    <option value="null" selected> Operation</option>
                                     <option value="<=">less than equal to</option>
                                     <option value="<">less than</option>
                                     <option value=">=">greater than equal to</option>
@@ -120,7 +120,7 @@
         <!-- Table Section -->
         <div class="card mt-4 shadow-sm">
             <div class="card-header text-white">
-                <h5 class="card-title mb-0">Data Collection</h5>
+                <h5 class="card-title mb-0"></h5>
             </div>
             <div class="card-body p-0">
                 <div class="table-responsive">
@@ -143,11 +143,13 @@
                                 <td>
                                     @if ($test->type == 'multiple field')
                                     <button wire:click="$dispatch('getid',{id:{{$test->id}}})" data-bs-toggle="modal" data-bs-target="#subTestModal" class="btn btn-sm" wire:click="resetFields">
-                                        <i class="bi bi-arrows-fullscreen"></i>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                        </svg>
                                     </button>
                                     @endif
                                 </td>
-                              
+
                                 <td>{{$key+1}}</td>
 
                                 <td>{{$test->test_name}}</td>
@@ -177,7 +179,8 @@
                             @if ($test_name!=null || $test_method!=null )
                             <tr>
                                 <td></td>
-                                <td>1</td>
+                                
+                                <td>{{$testfeature->count()+1}}</td>
                                 <td>{{$test_name}}</td>
                                 <td>{{$field}}</td>
                                 <td>{{$unit}}</td>

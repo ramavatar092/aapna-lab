@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('test_id');   
             $table->foreignId('parent_id')->nullable();
+            $table->string('type')->nullable();
             $table->string('test_name')->nullable();
             $table->string('test_method')->nullable();
             $table->string('field')->nullable();
@@ -26,6 +27,8 @@ return new class extends Migration
             $table->string('multiple_range')->nullable();
             $table->string('custom_default')->nullable();
             $table->string('custom_option')->nullable();
+            $table->string('custom_range')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
     }

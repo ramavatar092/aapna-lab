@@ -28,6 +28,9 @@ class SubTestFeature extends Component
     public $tests;
     public $testId;
     public $parent_id;
+    public $custom_range;
+
+  
 
     protected $rules = [
         'test_name' => 'required|string|max:255',
@@ -43,15 +46,17 @@ class SubTestFeature extends Component
         $testdetails=TestFeature::find($id);
         $this->testId=$testdetails->test_id;
         $this->title=$testdetails->test_name;
+
        
     
     }
+   
     public function resetFields()
     {
         $this->reset([
             'title', 'test_name', 'test_method', 'field', 'unit',
             'range_min', 'range_max', 'range_operation', 'range_value',
-            'multiple_range', 'custom_option', 'custom_default',
+            'multiple_range', 'custom_option', 'custom_default', 'custom_range'
         ]);
     }
 
@@ -71,7 +76,7 @@ class SubTestFeature extends Component
         $this->dispatch('success',__('Sub Test Feature Deleted'));
     }
 
-    public function saveSubTest(){
+    public function saveSubfeature(){
         $this->validate();
 
         TestFeature::create([
@@ -88,6 +93,7 @@ class SubTestFeature extends Component
             'multiple_range' => $this->multiple_range,
             'custom_default' => $this->custom_default,
             'custom_option' => $this->custom_option,
+            'custom_range'=>$this->custom_range,
         ]);
         $this->dispatch('refresh-sub-test-feature');
         $this->dispatch('reset-modal-test');
@@ -100,8 +106,12 @@ class SubTestFeature extends Component
     {
         $subfeature = TestFeature::where('parent_id',$this->parent_id)->where('parent_id', '!=', null)->get();
         $testmethod = TestMethod::all();
+     
+
         return view('livewire.test.sub-test-feature',[
+        
             'testmethods' => $testmethod,
+
             'subfeature' =>$subfeature
         ]);
     }
