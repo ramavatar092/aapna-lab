@@ -158,7 +158,7 @@
                                         @elseif ($test->field == 'multiple range')
                                             {{ $test->multiple_range }}
                                             @elseif($test->field== 'custom')
-                                            {{$custom_range}}
+                                            {{$test->custom_range}}
                                         @endif
                                     </td>
                                     <td>-</td>
