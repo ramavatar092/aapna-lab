@@ -82,6 +82,7 @@ class TestFeature extends Component
     }
 
     #[On('refresh-model-feature')]
+    #[On('refresh-testmethod')]
     public function render()
     {    $testmethod = TestMethod::all();
         $testfeature = TestFeatureModel::where('test_id',$this->Id)->where('parent_id',null)->get();
