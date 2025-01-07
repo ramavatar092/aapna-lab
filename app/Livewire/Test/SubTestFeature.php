@@ -2,15 +2,17 @@
 
 namespace App\Livewire\Test;
 
+
+use App\Models\TestFeature;
 use App\Models\TestMethod;
-use App\Models\TestFeature as TestFeatureModel;
 use Livewire\Attributes\On;
 use Livewire\Component;
 
-class TestFeature extends Component
+class SubTestFeature extends Component
 {
-    
-    public $type = 'single field';
+
+
+    public $title;
     public $test_name;
     public $test_method = null;
     public $field = 'numeric';
@@ -24,35 +26,50 @@ class TestFeature extends Component
     public $custom_option;
     public $dataCollection = [];
     public $tests;
-    public $Id;
+    public $testId;
+    public $parent_id;
 
     protected $rules = [
-        'type' => 'required',
         'test_name' => 'required|string|max:255',
         'test_method' => 'required|string',
         'field' => 'required',
     ];
-    public function mount($id){
 
-       $this->Id=$id;
+
+    #[On('getid')]
+    public function gettingId($id){
       
+        $this->parent_id=$id;
+        $testdetails=TestFeature::find($id);
+        $this->testId=$testdetails->test_id;
+        $this->title=$testdetails->test_name;
+       
+    
     }
-
     public function resetFields()
     {
         $this->reset([
-            'type', 'test_name', 'test_method', 'field', 'unit',
+            'title', 'test_name', 'test_method', 'field', 'unit',
             'range_min', 'range_max', 'range_operation', 'range_value',
             'multiple_range', 'custom_option', 'custom_default',
         ]);
     }
 
-    public function saveData(){
+    public function changetitle(){
+        TestFeature::find($this->parent_id)->update([
+            'test_name' => $this->title,
+        ]);
+
+        $this->dispatch('refresh-model-feature');
+        $this->dispatch('success',__('Test Feature Name Updated'));
+    }
+
+    public function saveSubTest(){
         $this->validate();
-        
-        $testfeature=TestFeatureModel::create([
-            'test_id' => $this->Id,
-            'type' => $this->type,
+
+        TestFeature::create([
+            'test_id' => $this->testId,
+            'parent_id' => $this->parent_id,
             'test_name' => $this->test_name,
             'test_method' => $this->test_method,
             'field' => $this->field,
@@ -65,26 +82,20 @@ class TestFeature extends Component
             'custom_default' => $this->custom_default,
             'custom_option' => $this->custom_option,
         ]);
-
+        $this->dispatch('refresh-sub-test-feature');
+        $this->dispatch('reset-modal-test');
+        $this->dispatch('success',__('Sub Test Feature Created'));
+        $this->dispatch('reset-sub-test-feature');
         $this->resetFields();
-        $this->dispatch('success',__('Test Feature Added Successfully'));
-        $this->dispatch('refresh-model-feature');
     }
-
-    public function removeData($id){
-        $testfeature = TestFeatureModel::find($id);
-        $testfeature->delete();
-        $this->dispatch('success',__('Test Feature Deleted Successfully'));
-        $this->dispatch('refresh-model-feature');
-    }
-
-    #[On('refresh-model-feature')]
+    #[On('reset-sub-test-feature')]
     public function render()
-    {    $testmethod = TestMethod::all();
-        $testfeature = TestFeatureModel::where('test_id',$this->Id)->where('parent_id',null)->get();
-        return view('livewire.test.test-feature',[
-            'testfeature' => $testfeature,
-           'testmethods' => $testmethod
+    {
+        $subfeature = TestFeature::where('parent_id',$this->parent_id)->where('parent_id', '!=', null)->get();
+        $testmethod = TestMethod::all();
+        return view('livewire.test.sub-test-feature',[
+            'testmethods' => $testmethod,
+            'subfeature' =>$subfeature
         ]);
     }
 }

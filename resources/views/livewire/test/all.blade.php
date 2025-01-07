@@ -22,7 +22,6 @@
                     <tr>
                         <th>#</th>
                         <th>{{ trans('cruds.test.fields.title') }}</th>
-                        <th>{{ trans('cruds.test.fields.test_name') }}</th>
                         <th>{{ trans('cruds.test.fields.test_method') }}</th>
                         <th>{{ trans('cruds.test.fields.gender') }}</th>
                         <th>{{ trans('cruds.test.fields.age') }}</th>
@@ -35,8 +34,7 @@
                     <tr>
                         <td>{{ $loop->iteration }}</td>
                         <td>{{ $test->title }}</td>
-                        <td>{{ $test->test_name }}</td>
-                        <td>{{ $test->test_method }}</td>
+
                         <td>{{ ucwords($test->gender) }}</td>
                         <td>{{ $test->age }}</td>
                         <td>{{ $test->created_at->format('d-m-Y') }}</td>
@@ -49,9 +47,7 @@
                                     title="update"> <i class="bx bx-edit-alt"></i>
                                 </button>
 
-                                <a href={{route('admin.testfeature',$test->id)}} class="btn btn-sm" title="view"
-                                    type="button" 
->
+                                <a href={{route('admin.testfeature',$test->id)}} class="btn btn-sm" title="view">
                                     <i class="bi bi-arrows-fullscreen"></i>
 
                                 </a>
@@ -83,7 +79,7 @@
 
         <livewire:test.add />
         <livewire:test.update />
-        <livewire:test.test-feature />
+       
 
     </div>
 

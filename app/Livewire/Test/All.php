@@ -35,8 +35,6 @@ class All extends Component
     {
       $tests = Test::query()
         ->where('title', 'like', '%' . $this->searchTerm . '%')
-        ->orWhere('test_name', 'like', '%' . $this->searchTerm . '%')
-        ->orWhere('test_method', 'like', '%' . $this->searchTerm . '%')
         ->paginate($this->perPage);
 
         return view('livewire.test.all', compact('tests'));

@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
             UserSeeder::class,
             BannerSeeder::class,
             NotificationSeeder::class,
-            TestSeeder::class,
+            // TestSeeder::class,
             PackageSeeder::class,
             DepartmentSeeder::class
         ]);

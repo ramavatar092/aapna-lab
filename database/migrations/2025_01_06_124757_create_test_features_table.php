@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('test_features', function (Blueprint $table) {
             $table->id();
             $table->foreignId('test_id');   
-            $table->foreignId('parent_id');
-            $table->string('type')->nullable();
+            $table->foreignId('parent_id')->nullable();
             $table->string('test_name')->nullable();
             $table->string('test_method')->nullable();
             $table->string('field')->nullable();
