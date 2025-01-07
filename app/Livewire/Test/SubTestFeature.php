@@ -33,7 +33,7 @@ class SubTestFeature extends Component
   
 
     protected $rules = [
-        'test_name' => 'required|string|max:255',
+        
         'test_method' => 'required|string',
         'field' => 'required',
     ];

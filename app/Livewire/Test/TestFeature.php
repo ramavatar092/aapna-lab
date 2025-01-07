@@ -22,6 +22,7 @@ class TestFeature extends Component
     public $multiple_range;
     public $custom_default;
     public $custom_option;
+    public $custom_range;
     public $dataCollection = [];
     public $tests;
     public $Id;
@@ -38,16 +39,17 @@ class TestFeature extends Component
       
     }
 
-    public function resetFields()
+    public function resetField()
     {
         $this->reset([
             'type', 'test_name', 'test_method', 'field', 'unit',
             'range_min', 'range_max', 'range_operation', 'range_value',
-            'multiple_range', 'custom_option', 'custom_default',
+            'multiple_range', 'custom_option', 'custom_default', 'custom_range',
         ]);
     }
 
     public function saveData(){
+
         $this->validate();
         
         $testfeature=TestFeatureModel::create([
@@ -64,9 +66,10 @@ class TestFeature extends Component
             'multiple_range' => $this->multiple_range,
             'custom_default' => $this->custom_default,
             'custom_option' => $this->custom_option,
+            'custom_range' => $this->custom_range,
         ]);
 
-        $this->resetFields();
+        $this->resetField();
         $this->dispatch('success',__('Test Feature Added Successfully'));
         $this->dispatch('refresh-model-feature');
     }
