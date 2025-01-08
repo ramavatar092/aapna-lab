@@ -1,12 +1,12 @@
 <div>
-<div>
+<div class="container p-0">
     <!-- Modal -->
     <div wire:ignore.self class="modal fade" id="subTestModal" tabindex="-1" aria-labelledby="subTestModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h5 class="modal-title" id="subTestModalLabel">Add Sub Field</h5>
+                    <h5 class="modal-title " id="subTestModalLabel">Add Sub Field</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -28,7 +28,7 @@
                     </div>
 
                     <!-- Conditional Fields -->
-                    <div class="row mt-3 p-3">
+                    <div class="row mt-3 p-0 mt-4 ">
                         <!-- Test Name and Test Method -->
                         <div class="col-md-4">
                             <label for="test_name" class="form-label">
@@ -124,14 +124,11 @@
                             </div>
                         @endif
                     </div>
-                </div>
-
-                <!-- Sub Fields Table -->
-                <div class="mt-2 p-3">
+                    <div class="mt-4 p-0">
                     <strong>
-                        <h5 class="mb-3">Sub Fields of {{ $title }}</h5>
+                        <h5 class=" mt-4">Sub Fields of {{ $title }}</h5>
                     </strong>
-                    <table class="table table-bordered table-hover">
+                    <table class="table table-bordered mt-2 table-hover">
                         <thead>
                             <tr>
                                 <th>#</th>
@@ -197,6 +194,10 @@
                         </tbody>
                     </table>
                 </div>
+                </div>
+
+                <!-- Sub Fields Table -->
+               
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
