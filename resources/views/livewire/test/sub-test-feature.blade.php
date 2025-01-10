@@ -6,7 +6,7 @@
             <div class="modal-content">
                 <!-- Modal Header -->
                 <div class="modal-header">
-                    <h5 class="modal-title " id="subTestModalLabel">Add Sub Field</h5>
+                    <h5 class="modal-title " id="subTestModalLabel">New Test Sub Parameters</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
 
@@ -20,9 +20,7 @@
                                     <label for="type" class="form-label mb-1">Title:</label>
                                     <input type="text" wire:model.live="title" class="form-control" placeholder="Enter title" />
                                 </div>
-                                <button type="submit" wire:click="changetitle" class="btn btn-primary d-flex mt-4 btn-sm align-items-center">
-                                    <i class="bx bx-pencil me-2"></i> Save
-                                </button>
+                                <button type="submit" wire:click="changetitle" class="btn btn-primary d-flex mt-4 btn-sm align-items-center">Save</button>
                             </div>
                         </div>
                     </div>
@@ -52,10 +50,11 @@
                         <div class="col-md-4">
                             <label for="field" class="form-label mt-2">Field:</label>
                             <select id="field" wire:model.live="field" class="form-select">
-                                <option value="numeric" selected>numeric</option>
-                                <option value="numeric unbound">numeric unbound</option>
-                                <option value="multiple range">multiple range</option>
-                                <option value="custom">custom</option>
+                                <option value="" Selected>Select</option>
+                                <option value="numeric">Numeric</option>
+                                <option value="numeric-unbound">Numeric Unbound</option>
+                                <option value="multiple-range">Multiple Range</option>
+                                <option value="custom">Custom</option>
                             </select>
                             @error('field') <span class="text-danger">{{ $message }}</span> @enderror
 
@@ -76,7 +75,7 @@
                                 @error('range_min') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('range_max') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                        @elseif ($field == 'numeric unbound')
+                        @elseif ($field == 'numeric-unbound')
                             <div class="col-md-4">
                                 <label for="rangeOperation" class="form-label mt-2">Range:</label>
                                 <div class="input-group">
@@ -126,7 +125,7 @@
                     </div>
                     <div class="mt-4 p-0">
                     <strong>
-                        <h5 class=" mt-4">Sub Fields of {{ $title }}</h5>
+                        <h5 class=" mt-4">Test Sub Parameters</h5>
                     </strong>
                     <table class="table table-bordered mt-2 table-hover">
                         <thead>
@@ -150,7 +149,7 @@
                                     <td>
                                         @if ($test->field == 'numeric')
                                             {{ $test->range_min }}-{{ $test->range_max }}
-                                        @elseif ($test->field == 'numeric unbound')
+                                        @elseif ($test->field == 'numeric-')
                                             {{ $test->range_operation }} {{ $test->range_value }}
                                         @elseif ($test->field == 'multiple range')
                                             {{ $test->multiple_range }}
@@ -175,7 +174,7 @@
                                     <td>
                                         @if ($field == 'numeric')
                                             {{ $range_min }}-{{ $range_max }}
-                                        @elseif ($field == 'numeric unbound')
+                                        @elseif ($field == '')
                                             {{ $range_operation }} {{ $range_value }}
                                         @elseif ($field == 'multiple range')
                                             {{ $multiple_range }}
@@ -197,7 +196,7 @@
                 </div>
 
                 <!-- Sub Fields Table -->
-               
+
 
                 <!-- Modal Footer -->
                 <div class="modal-footer">
@@ -208,16 +207,4 @@
         </div>
     </div>
 </div>
-
-
-@script
-<script>
-    document.addEventListener('livewire:initialized', () => {
-        $wire.on('reset-modal-test', (event) => {
-            $('#subTestModal').modal('hide');
-        });
-    });
-</script>
-@endscript
-
 </div>

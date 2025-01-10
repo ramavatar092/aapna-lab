@@ -9,7 +9,7 @@ use Livewire\Component;
 
 class TestFeature extends Component
 {
-    
+
     public $type = 'single field';
     public $test_name;
     public $test_method = null;
@@ -30,13 +30,13 @@ class TestFeature extends Component
     protected $rules = [
         'type' => 'required',
         'test_name' => 'required|string|max:255',
-        'test_method' => 'required|string',
+        //'test_method' => 'required|string',
         'field' => 'required',
     ];
     public function mount($id){
 
        $this->Id=$id;
-      
+
     }
 
     public function resetField()
@@ -51,7 +51,7 @@ class TestFeature extends Component
     public function saveData(){
 
         $this->validate();
-        
+
         $testfeature=TestFeatureModel::create([
             'test_id' => $this->Id,
             'type' => $this->type,
