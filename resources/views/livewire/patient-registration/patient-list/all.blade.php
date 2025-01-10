@@ -3,15 +3,21 @@
     <div class="d-flex justify-content-between mb-3">
         <button class="btn btn-light border">Worksheet</button>
         <div class="d-flex gap-2">
-            <input type="text" class="form-control" placeholder="Search by name or barcode">
-            <select class="form-select">
-                <option selected>All</option>
-                <option>Option 1</option>
-                <option>Option 2</option>
+            <input type="text" wire:model.live="search" class="form-control" placeholder="Search by name or barcode">
+            <select wire:model.live="filterStatus" class="form-select">
+                <option value="">All</option>
+                <option value="ongoing">Ongoing</option>
+                <option value="review">Review</option>
+                <option value="issue">Issue</option>
+                <option value="resolved">Resolved</option>
+                <option value="completed">Completed</option>
+                <option value="delivered">Delivered</option>
+                <option value="partial">Partial</option>
             </select>
         </div>
-        <input type="date" class="form-control w-auto">
+        <input type="date" wire:model.live="filterDate" class="form-control w-auto">
     </div>
+
     <div class="card">
         <div class="card-body p-3">
             <!-- Table Header -->
@@ -120,6 +126,6 @@
             <livewire:patient-registration.patient-list.bill-preview />
             <livewire:patient-registration.patient-list.update-bill />
         </div>
-        
+
 
     </div>

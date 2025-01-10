@@ -71,7 +71,7 @@ class SubTestFeature extends Component
 
    
     public function destroy($id){
-        TestFeature::find($id)->delete();
+        TestFeature::find($id)?->delete();
         $this->dispatch('refresh-sub-test-feature');
         $this->dispatch('success',__('Sub Test Feature Deleted'));
     }
