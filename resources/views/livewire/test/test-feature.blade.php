@@ -2,7 +2,7 @@
     <!-- Form Section -->
     <div class="card shadow-sm">
         <div class="card-header">
-            <h5 class="card-title mb-0">Form Details</h5>
+            <h5 class="card-title mb-0">Add New Parameter</h5>
         </div>
         <div class="card-body">
             <div class="row g-3">
@@ -12,9 +12,9 @@
                         <label for="type" class="form-label fw-bold">Type:</label>
                         <select id="type" wire:model.live="type" class="form-select">
                             <option value="" selected>Select Type</option>
-                            <option value="single field">Single Field</option>
-                            <option value="multiple field">Multiple Field</option>
-                            <option value="text editor">Text Editor</option>
+                            <option value="single-field">Single Field</option>
+                            <option value="multiple-field">Multiple Field</option>
+                            <option value="text-editor">Text Editor</option>
                         </select>
                         <span class="text-danger small mt-1">@error('type') {{ $message }} @enderror</span>
                     </div>
@@ -45,11 +45,12 @@
                     <div class="mb-3">
                         <label for="field" class="form-label fw-bold">Field:</label>
                         <select id="field" wire:model.live="field" class="form-select">
-                            <option value="numeric" selected>Numeric</option>
-                            @if($type != 'multiple field')
-                            <option value="numeric unbound">Numeric Unbound</option>
-                            <option value="multiple range">Multiple Range</option>
-                            <option value="custom">Custom</option>
+                            <option value="">Select</option>
+                            <option value="numeric">Numeric</option>
+                            @if($type != 'multiple-field')
+                                <option value="numeric-unbound">Numeric Unbound</option>
+                                <option value="multiple-range">Multiple Range</option>
+                                <option value="custom">Custom</option>
                             @endif
                         </select>
                         <span class="text-danger small mt-1">@error('field') {{ $message }} @enderror</span>
@@ -60,7 +61,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="mb-3">
                         <label for="unit" class="form-label fw-bold">Unit:</label>
-                        <input type="text" class="form-control" wire:model.live="unit" id="unit" placeholder="Enter Unit" {{$type == 'multiple field' ? 'readonly' : ''}}>
+                        <input type="text" class="form-control" wire:model.live="unit" id="unit" placeholder="Enter Unit" {{$type == '' ? 'readonly' : ''}}>
                         <span class="text-danger small mt-1">@error('unit') {{ $message }} @enderror</span>
                     </div>
 
@@ -69,9 +70,9 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">Range:</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" wire:model.live="range_min" placeholder="Min" {{$type=='multiple field' ? 'readonly' : ''}}>
+                            <input type="number" class="form-control" wire:model.live="range_min" placeholder="Min" {{$type=='' ? 'readonly' : ''}}>
                             <span class="input-group-text">to</span>
-                            <input type="number" class="form-control" wire:model.live="range_max" placeholder="Max" {{$type=='multiple field' ? 'readonly' : ''}}>
+                            <input type="number" class="form-control" wire:model.live="range_max" placeholder="Max" {{$type=='multiple-field' ? 'readonly' : ''}}>
                         </div>
                         <span class="text-danger small mt-1">@error('range_min') {{ $message }} @enderror</span>
                         <span class="text-danger small">@error('range_max') {{ $message }} @enderror</span>
@@ -134,14 +135,14 @@
     <!-- Table Section -->
     <div class="card mt-4 shadow-sm">
         <div class="card-header">
-            <h5 class="card-title mb-0">Test Features</h5>
+            <h5 class="card-title mb-0">Test Parameters</h5>
         </div>
         <div class="card-body p-0">
             <div class="table-responsive">
                 <table class="table table-hover table-striped mb-0">
                     <thead>
                         <tr>
-                            <th></th>
+                            <th width="5px"></th>
                             <th>#</th>
                             <th>Name</th>
                             <th>Field</th>
@@ -155,12 +156,16 @@
                         @foreach ($testfeature as $key => $test)
                         <tr>
                             <td>
-                                @if ($test->type == 'multiple field')
-                                <button wire:click="$dispatch('getid', {id: {{$test->id}}})" data-bs-toggle="modal" data-bs-target="#subTestModal" class="btn btn-sm">
-                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                                    </svg>
-                                </button>
+                                @if ($test->type == 'multiple-field')
+                                    <button wire:click="$dispatch('getid', {id: {{$test->id}}})"
+                                            data-bs-toggle="modal"
+                                            data-bs-target="#subTestModal"
+                                            class="btn btn-sm"
+                                            title="Multiple Parameter">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                        </svg>
+                                    </button>
                                 @endif
                             </td>
                             <td>{{ $key + 1 }}</td>

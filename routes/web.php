@@ -39,7 +39,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('patient-list/{id}',AllPatientDetail::class)->name('admin.patientdetails');
     Route::get('test',AllTest::class)->name('admin.tests');
     Route::get('/enterverify',AllEnterVerify::class)->name('admin.enterverify');
-    Route::get('test/testfeature/{id}',AddTestFeature::class)->name('admin.testfeature');
+    Route::get('test/parameter/{id}',AddTestFeature::class)->name('admin.testfeature');
     // Route::get('test/update/{id}',UpdateTest::class)->name('admin.testupdate');
     Route::get('department', AllDepartment::class)->name('admin.departments');
     Route::get('Package',AllPackage::class)->name('admin.packages');

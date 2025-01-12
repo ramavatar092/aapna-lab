@@ -30,27 +30,27 @@ class SubTestFeature extends Component
     public $parent_id;
     public $custom_range;
 
-  
+
 
     protected $rules = [
-        
-        'test_method' => 'required|string',
+
+        //'test_method' => 'required|string',
         'field' => 'required',
     ];
 
 
     #[On('getid')]
     public function gettingId($id){
-      
+
         $this->parent_id=$id;
         $testdetails=TestFeature::find($id);
         $this->testId=$testdetails->test_id;
         $this->title=$testdetails->test_name;
 
-       
-    
+
+
     }
-   
+
     public function resetFields()
     {
         $this->reset([
@@ -69,7 +69,7 @@ class SubTestFeature extends Component
         $this->dispatch('success',__('Test Feature Name Updated'));
     }
 
-   
+
     public function destroy($id){
         TestFeature::find($id)?->delete();
         $this->dispatch('refresh-sub-test-feature');
@@ -106,10 +106,10 @@ class SubTestFeature extends Component
     {
         $subfeature = TestFeature::where('parent_id',$this->parent_id)->get();
         $testmethod = TestMethod::all();
-     
+
 
         return view('livewire.test.sub-test-feature',[
-        
+
             'testmethods' => $testmethod,
 
             'subfeature' =>$subfeature

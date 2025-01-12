@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('departments', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->longText('description');
+            $table->longText('description')->nullable();
             $table->string('slug')->unique();
             $table->boolean('status')->default(0);
             $table->string('created_by')->nullable();
