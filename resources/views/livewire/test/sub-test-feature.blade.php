@@ -119,7 +119,7 @@
                                 @error('range_operation') <span class="text-danger">{{ $message }}</span> @enderror
                                 @error('range_value') <span class="text-danger">{{ $message }}</span> @enderror
                             </div>
-                            @elseif ($field == 'multiple range')
+                            @elseif ($field == 'multiple-range')
                             <div class="col-md-4">
                                 <label for="multiple_range" class="form-label mt-2">Range:</label>
                                 <textarea class="form-control" wire:model.live="multiple_range" id="multiple_range" placeholder="Enter Range"></textarea>
@@ -167,6 +167,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                   
                                     @foreach ($subfeature as $key => $test)
                                     <tr>
                                         <td>{{ $key + 1 }}</td>
@@ -192,6 +193,8 @@
                                         </td>
                                     </tr>
                                     @endforeach
+
+                                  
                                     @if ($test_name != null || $test_method != null)
                                     <tr>
                                         <td>{{ $subfeature->count() + 1 }}</td>
@@ -203,7 +206,7 @@
                                             {{ $range_min }}-{{ $range_max }}
                                             @elseif ($field == 'numeric-unbound')
                                             {{ $range_operation }} {{ $range_value }}
-                                            @elseif ($field == 'multiple range')
+                                            @elseif ($field == 'multiple-range')
                                             {{ $multiple_range }}
                                             @elseif($field== 'custom')
                                             {{$custom_range}}

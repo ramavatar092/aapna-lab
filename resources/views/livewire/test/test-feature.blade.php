@@ -48,9 +48,9 @@
                             <option value="">Select</option>
                             <option value="numeric">Numeric</option>
                             @if($type != 'multiple-field')
-                                <option value="numeric-unbound">Numeric Unbound</option>
-                                <option value="multiple-range">Multiple Range</option>
-                                <option value="custom">Custom</option>
+                            <option value="numeric-unbound">Numeric Unbound</option>
+                            <option value="multiple-range">Multiple Range</option>
+                            <option value="custom">Custom</option>
                             @endif
                         </select>
                         <span class="text-danger small mt-1">@error('field') {{ $message }} @enderror</span>
@@ -77,7 +77,7 @@
                         <span class="text-danger small mt-1">@error('range_min') {{ $message }} @enderror</span>
                         <span class="text-danger small">@error('range_max') {{ $message }} @enderror</span>
                     </div>
-                    @elseif($field == 'numeric unbound')
+                    @elseif($field == 'numeric-unbound')
                     <div class="mb-3">
                         <label class="form-label fw-bold">Range:</label>
                         <div class="input-group">
@@ -94,7 +94,7 @@
                         <span class="text-danger small mt-1">@error('range_operation') {{ $message }} @enderror</span>
                         <span class="text-danger small">@error('range_value') {{ $message }} @enderror</span>
                     </div>
-                    @elseif($field == 'multiple range')
+                    @elseif($field == 'multiple-range')
                     <div class="mb-3">
                         <label class="form-label fw-bold">Range:</label>
                         <textarea class="form-control" wire:model.live="multiple_range" placeholder="Enter Range"></textarea>
@@ -157,15 +157,15 @@
                         <tr>
                             <td>
                                 @if ($test->type == 'multiple-field')
-                                    <button wire:click="$dispatch('getid', {id: {{$test->id}}})"
-                                            data-bs-toggle="modal"
-                                            data-bs-target="#subTestModal"
-                                            class="btn btn-sm"
-                                            title="Multiple Parameter">
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
-                                            <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
-                                        </svg>
-                                    </button>
+                                <button wire:click="$dispatch('getid', {id: {{$test->id}}})"
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#subTestModal"
+                                    class="btn btn-sm"
+                                    title="Multiple Parameter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                    </svg>
+                                </button>
                                 @endif
                             </td>
                             <td>{{ $key + 1 }}</td>
@@ -175,9 +175,9 @@
                             <td>
                                 @if ($test->field == 'numeric')
                                 {{ $test->range_min }}-{{ $test->range_max }}
-                                @elseif($test->field == 'numeric unbound')
+                                @elseif($test->field == 'numeric-unbound')
                                 {{ $test->range_operation }} {{ $test->range_value }}
-                                @elseif($test->field == 'multiple range')
+                                @elseif($test->field == 'multiple-range')
                                 {{ $test->multiple_range }}
                                 @elseif($test->field == 'custom')
                                 {{$test->custom_range}}
@@ -193,7 +193,19 @@
                         @endforeach
                         @if ($test_name || $test_method)
                         <tr>
-                            <td></td>
+                            <td>
+                                @if ($type == 'multiple-field')
+                                <button
+                                    data-bs-toggle="modal"
+                                    data-bs-target="#subTestModal"
+                                    class="btn btn-sm"
+                                    title="Multiple Parameter">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-plus" viewBox="0 0 16 16">
+                                        <path d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4" />
+                                    </svg>
+                                </button>
+                                @endif
+                            </td>
                             <td>{{ $testfeature->count() + 1 }}</td>
                             <td>{{ $test_name }}</td>
                             <td>{{ $field }}</td>
@@ -201,9 +213,9 @@
                             <td>
                                 @if ($field == 'numeric')
                                 {{ $range_min }}-{{ $range_max }}
-                                @elseif($field == 'numeric unbound')
+                                @elseif($field == 'numeric-unbound')
                                 {{ $range_operation }} {{ $range_value }}
-                                @elseif($field == 'multiple range')
+                                @elseif($field == 'multiple-range')
                                 {{ $multiple_range }}
                                 @elseif($field == 'custom')
                                 {{$custom_range}}

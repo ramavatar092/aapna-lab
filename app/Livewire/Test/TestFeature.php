@@ -47,6 +47,13 @@ class TestFeature extends Component
             'multiple_range', 'custom_option', 'custom_default', 'custom_range',
         ]);
     }
+    public function UpdatedType(){
+        $this->reset([
+              'field', 'unit',
+            'range_min', 'range_max', 'range_operation', 'range_value',
+            'multiple_range', 'custom_option', 'custom_default', 'custom_range',
+        ]);
+    }
 
     public function saveData(){
 
@@ -70,14 +77,14 @@ class TestFeature extends Component
         ]);
 
         $this->resetField();
-        $this->dispatch('success',__('Test Feature Added Successfully'));
+        $this->dispatch('success',__('Test Parameter Added Successfully'));
         $this->dispatch('refresh-model-feature');
     }
 
     public function removeData($id){
         $testfeature = TestFeatureModel::find($id);
-        $testfeature->delete();
-        $this->dispatch('success',__('Test Feature Deleted Successfully'));
+        $testfeature?->delete();
+        $this->dispatch('success',__('Test Parameter Deleted Successfully'));
         $this->dispatch('refresh-model-feature');
     }
 
