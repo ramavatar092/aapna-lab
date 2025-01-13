@@ -97,7 +97,7 @@ class SubTestFeature extends Component
         ]);
         $this->dispatch('refresh-sub-test-feature');
         $this->dispatch('reset-modal-test');
-        $this->dispatch('success',__('Sub Test Feature Created'));
+        session()->flash('success_message', 'Sub-feature added successfully!');
         $this->dispatch('reset-sub-test-feature');
         $this->resetFields();
     }

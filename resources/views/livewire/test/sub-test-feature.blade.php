@@ -10,6 +10,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
 
+
                     <!-- Modal Body -->
                     <div class="modal-body">
                         <!-- Title Input -->
@@ -28,6 +29,13 @@
                                 </div>
                                 @endif
                             </div>
+                            @if (session()->has('success_message'))
+                            <div class="alert alert-success mt-3">
+                                {{ session('success_message') }}
+                            </div>
+                            @endif
+
+
                         </div>
 
                         <!-- Conditional Fields -->
