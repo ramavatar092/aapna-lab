@@ -54,16 +54,18 @@
                             {{ $patient->patient->user->gender }}, {{ $patient->patient->age }} {{ $patient->patient->age_type }}
                         </span>
                     </div>
-                    <div class="col">{{ $patient->organisation ?: '-' }}</div>
+                    <div class="col">{{ $patient->organisation ? $patient->organisation : 'self'}}</div>
                     <div class="col">
-                        @foreach ($patient->testbill as $bill)
                         @php
-                        $testName = $bill->table_type == 'test' ? $bill->test->title : $bill->package->title;
+                        $testNames = $patient->testbill->map(function ($bill) {
+                        return $bill->table_type == 'test' ? $bill->test->title : $bill->package->title;
+                        })->implode(', ');
                         @endphp
-                        <span class="badge bg-warning text-dark mb-1">{{ $testName }}</span>
-                        @endforeach
+
+                        <span class="mb-1">{{ $testNames }}</span>
+
                     </div>
-                    <div class="col">₹{{ $patient->advanced_payment }}</div>
+                    <div class="col">₹{{ $patient->advanced_payment +$patient->due_payment}}</div>
                     <div class="col">{{ \Carbon\Carbon::parse($patient->date)->format('d/m/Y h:i A') }}</div>
                     <div class="col">
                         @php $statusInfo = getStatus($patient->status); @endphp
