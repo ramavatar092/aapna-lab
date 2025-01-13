@@ -30,10 +30,24 @@
                                 @endif
                             </div>
                             @if (session()->has('success_message'))
-                            <div class="alert alert-success mt-3">
-                                {{ session('success_message') }}
+                            <div
+                                class="alert alert-success d-flex align-items-center mt-3 fade-in"
+                                style="animation: fadeIn 0.8s ease-in-out; border-left: 5px solid #198754; color: #0f5132;">
+                                <i class="bx bx-check-circle me-2" style="font-size: 1.5rem;"></i>
+                                <span>{{ session('success_message') }}</span>
                             </div>
                             @endif
+
+                            @if (session()->has('delete_message'))
+                            <div
+                                class="alert alert-danger d-flex align-items-center mt-3 fade-in"
+                                style="animation: fadeIn 0.8s ease-in-out;  border-left: 5px solid #dc3545; color: #842029;">
+                                <i class="bx bx-error-circle me-2" style="font-size: 1.5rem;"></i>
+                                <span>{{ session('delete_message') }}</span>
+                            </div>
+                            @endif
+
+
 
 
                         </div>

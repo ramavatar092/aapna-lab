@@ -73,7 +73,8 @@ class SubTestFeature extends Component
     public function destroy($id){
         TestFeature::find($id)?->delete();
         $this->dispatch('refresh-sub-test-feature');
-        $this->dispatch('success',__('Sub Test Feature Deleted'));
+        session()->flash('delete_message', 'Sub-feature deleted successfully!');
+
     }
 
     public function saveSubfeature(){
@@ -95,10 +96,10 @@ class SubTestFeature extends Component
             'custom_option' => $this->custom_option,
             'custom_range'=>$this->custom_range,
         ]);
-        $this->dispatch('refresh-sub-test-feature');
+        
         $this->dispatch('reset-modal-test');
+      
         session()->flash('success_message', 'Sub-feature added successfully!');
-        $this->dispatch('reset-sub-test-feature');
         $this->resetFields();
     }
     #[On('reset-sub-test-feature')]
