@@ -18,6 +18,7 @@ use App\Livewire\Lab\All as AllLabMangement;
 use App\Livewire\ManageUser\All as AllManageUser;
 use App\Livewire\LabProfile\All as AllLabProfile;
 use App\Livewire\Center\All as AllCenter;
+use App\Livewire\Report\Report as Report;
 use App\Livewire\Test\TestFeature as AddTestFeature;
 use App\Livewire\Users\All as AllUsers;
 use App\Livewire\SampleCollector\All as AllSampleCollector;
@@ -40,6 +41,7 @@ Route::middleware(['auth:sanctum', config('jetstream.auth_session'), 'verified',
     Route::get('test',AllTest::class)->name('admin.tests');
     Route::get('/enterverify',AllEnterVerify::class)->name('admin.enterverify');
     Route::get('test/parameter/{id}',AddTestFeature::class)->name('admin.testfeature');
+    Route::get('report/{id}',Report::class)->name('admin.report');  
     // Route::get('test/update/{id}',UpdateTest::class)->name('admin.testupdate');
     Route::get('department', AllDepartment::class)->name('admin.departments');
     Route::get('Package',AllPackage::class)->name('admin.packages');

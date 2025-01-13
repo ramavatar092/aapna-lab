@@ -17,9 +17,9 @@
   <table class="table table-bordered">
     <thead class="table-light">
       <tr>
-        <th>Patient Id</th>
-        <th>Patient Details</th>
-        <th>Ref. Doctor</th>
+        <th>#</th>
+        <th>Details</th>
+        <th>Ref</th>
         <th>Tests</th>
         <th>Date</th>
         <th>Status</th>
@@ -31,11 +31,13 @@
       <tr>
         <td>{{$key+1}}</td>
         <td>{{ $patient->patient->user->name }} {{ $patient->patient->user->lastname ?? '' }}</td>
-        <td>-</td>
+        <td>
+        {{ $patient->organisation ? $patient->organisation : 'self'}}
+        </td>
         <td>
           @php
-          $testNames = $patient->testbill->map(function ($bill) {
-          return $bill->table_type == 'test' ? $bill->test->title : $bill->package->title;
+          $testNames = $patient?->testbill->map(function ($bill) {
+          return $bill?->table_type == 'test' ? $bill?->test?->title : $bill?->package?->title;
           })->implode(', ');
           @endphp
 
@@ -49,8 +51,7 @@
           <span class="badge {{ $statusInfo['class'] }}">{{ $statusInfo['label'] }}</span>
         </td>
         <td>
-          <button class="btn btn-sm btn-primary"
-            data-bs-target="#invoiceModal">
+          <a href="{{route('admin.report',$patient->id)}}" class="btn btn-sm btn-primary">
             Report
           </button>
         </td>

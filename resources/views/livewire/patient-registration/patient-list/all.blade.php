@@ -57,8 +57,8 @@
                     <div class="col">{{ $patient->organisation ? $patient->organisation : 'self'}}</div>
                     <div class="col">
                         @php
-                        $testNames = $patient->testbill->map(function ($bill) {
-                        return $bill->table_type == 'test' ? $bill->test->title : $bill->package->title;
+                        $testNames = $patient?->testbill->map(function ($bill) {
+                        return $bill?->table_type == 'test' ? $bill?->test?->title : $bill?->package?->title;
                         })->implode(', ');
                         @endphp
 
