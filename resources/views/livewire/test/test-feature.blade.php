@@ -61,7 +61,7 @@
                 <div class="col-lg-4 col-md-12">
                     <div class="mb-3">
                         <label for="unit" class="form-label fw-bold">Unit:</label>
-                        <input type="text" class="form-control" wire:model.live="unit" id="unit" placeholder="Enter Unit" {{$type == '' ? 'readonly' : ''}}>
+                        <input type="text" class="form-control" wire:model.live="unit" id="unit" placeholder="Enter Unit" {{$type == 'multiple-field' ? 'readonly' : ''}}>
                         <span class="text-danger small mt-1">@error('unit') {{ $message }} @enderror</span>
                     </div>
 
@@ -70,7 +70,7 @@
                     <div class="mb-3">
                         <label class="form-label fw-bold">Range:</label>
                         <div class="input-group">
-                            <input type="number" class="form-control" wire:model.live="range_min" placeholder="Min" {{$type=='' ? 'readonly' : ''}}>
+                            <input type="number" class="form-control" wire:model.live="range_min" placeholder="Min" {{$type=='multiple-field' ? 'readonly' : ''}}>
                             <span class="input-group-text">to</span>
                             <input type="number" class="form-control" wire:model.live="range_max" placeholder="Max" {{$type=='multiple-field' ? 'readonly' : ''}}>
                         </div>

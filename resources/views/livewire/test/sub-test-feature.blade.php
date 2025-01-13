@@ -149,7 +149,7 @@
                                     <td>
                                         @if ($test->field == 'numeric')
                                             {{ $test->range_min }}-{{ $test->range_max }}
-                                        @elseif ($test->field == 'numeric-')
+                                        @elseif ($test->field == 'numeric-unbound')
                                             {{ $test->range_operation }} {{ $test->range_value }}
                                         @elseif ($test->field == 'multiple range')
                                             {{ $test->multiple_range }}
@@ -174,7 +174,7 @@
                                     <td>
                                         @if ($field == 'numeric')
                                             {{ $range_min }}-{{ $range_max }}
-                                        @elseif ($field == '')
+                                        @elseif ($field == 'numeric-unbound')
                                             {{ $range_operation }} {{ $range_value }}
                                         @elseif ($field == 'multiple range')
                                             {{ $multiple_range }}
