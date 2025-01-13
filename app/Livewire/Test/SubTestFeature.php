@@ -66,7 +66,7 @@ class SubTestFeature extends Component
         ]);
 
         $this->dispatch('refresh-model-feature');
-        $this->dispatch('success',__('Test Feature Name Updated'));
+        session()->flash('message', 'Title updated successfully!');
     }
 
 
