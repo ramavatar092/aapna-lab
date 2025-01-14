@@ -26,4 +26,18 @@ class TestFeature extends Model
         'custom_option',
         'custom_range',
     ];
+
+    public function parent()
+    {
+        return $this->belongsTo(TestFeature::class, 'parent_id');
+    }
+
+
+    public function children()
+    {
+        return $this->hasMany(TestFeature::class, 'parent_id');
+    }
+    public function test(){
+        return $this->belongsTo(Test::class, 'test_id');
+    }
 }

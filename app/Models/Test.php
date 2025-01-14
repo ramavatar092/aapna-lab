@@ -48,4 +48,7 @@ class Test extends Model
     public function testname(){
         return $this->hasMany(TestPackageBill::class, 'test_id');
     }
+    public function testParameter(){
+        return $this->hasMany(TestFeature::class, 'test_id');
+    }
 }
