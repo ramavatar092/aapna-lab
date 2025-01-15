@@ -126,9 +126,17 @@
                 </div>
             </div>
         </div>
-        <div class="card-footer text-end">
-            <button type="button" class="btn btn-secondary">Close</button>
-            <button type="button" class="btn btn-primary" wire:click="saveData">Save</button>
+        <div class="card-footer d-flex justify-content-between text-end">
+            <div class="d-flex gap-2">
+                <button type="button" class="btn  btn-outline-primary" data-bs-toggle="modal" data-bs-target="#ViewCommentModal">
+                    View Comments
+                </button>
+                <button class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#commentModal">Add Comment</button>
+            </div>
+            <div class="d-flex gap-2">
+                <button type="button" class="btn btn-secondary">Close</button>
+                <button type="button" class="btn btn-primary" wire:click="saveData">Save</button>
+            </div>
         </div>
     </div>
 
@@ -237,5 +245,7 @@
 
     <!-- Modals -->
     <livewire:test.testmethod />
+    <livewire:test.view-comment />
     <livewire:test.sub-test-feature />
+    <livewire:test.comment :id="$Id" />
 </div>
