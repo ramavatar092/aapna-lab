@@ -2,12 +2,16 @@
 
 namespace App\Livewire\EnterandVerify;
 
+use App\Models\PatientBilling;
 use Livewire\Component;
 
 class All extends Component
 {
     public function render()
-    {
-        return view('livewire.enterand-verify.all');
+    {  
+        $patientDetails = PatientBilling::with('patient', 'testbill')->get();
+        return view('livewire.enterand-verify.all',[
+            'patientDetails' => $patientDetails
+        ]);
     }
 }

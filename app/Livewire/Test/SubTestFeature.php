@@ -66,14 +66,16 @@ class SubTestFeature extends Component
         ]);
 
         $this->dispatch('refresh-model-feature');
-        $this->dispatch('success',__('Test Feature Name Updated'));
+        session()->flash('message', 'Title updated successfully!');
     }
 
 
     public function destroy($id){
         TestFeature::find($id)?->delete();
         $this->dispatch('refresh-sub-test-feature');
-        $this->dispatch('success',__('Sub Test Feature Deleted'));
+        session()->flash('delete_message', 'Test Sub Parameter deleted successfully!');
+        $this->dispatch('reset-sub-test-feature');
+
     }
 
     public function saveSubfeature(){
@@ -95,23 +97,29 @@ class SubTestFeature extends Component
             'custom_option' => $this->custom_option,
             'custom_range'=>$this->custom_range,
         ]);
+        session()->flash('success_message', 'Test Sub Parameter added successfully!');
         $this->dispatch('refresh-sub-test-feature');
         $this->dispatch('reset-modal-test');
-        $this->dispatch('success',__('Sub Test Feature Created'));
         $this->dispatch('reset-sub-test-feature');
         $this->resetFields();
     }
+
+    
     #[On('reset-sub-test-feature')]
     public function render()
     {
-        $subfeature = TestFeature::where('parent_id',$this->parent_id)->get();
+        $subfeature = [];
+
+        if(!$this->parent_id ==null){
+            $subfeature = TestFeature::where('parent_id',$this->parent_id)->get();
+        }
         $testmethod = TestMethod::all();
 
 
         return view('livewire.test.sub-test-feature',[
 
             'testmethods' => $testmethod,
-
+            
             'subfeature' =>$subfeature
         ]);
     }

@@ -27,5 +27,8 @@ class Package extends Model
 public function packagename(){
     return $this->hasMany(Package::class, 'package_id');
 }
+public function packageInbill(){
+    return $this->hasMany(TestPackageBill::class, 'package_id');
+}
 
 }

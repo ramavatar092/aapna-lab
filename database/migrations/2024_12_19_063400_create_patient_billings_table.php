@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('discount_amount')->nullable();
             $table->string('discount_by')->nullable();
             $table->string('sampleCollector')->nullable();
-            $table->string('organisation')->nullable();
+            $table->string('organisation')->default('self')->nullable();
             $table->string('collectedat')->nullable();
             $table->text('reason_of_discount')->nullable();
             $table->string('advanced_payment')->nullable();
