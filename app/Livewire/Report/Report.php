@@ -92,6 +92,7 @@ class Report extends Component
                 'custom_range' => $parameter['custom_range'],
                 'range_description' => $range_description, // Add the calculated range description
             ];
+            dd($savedData);
         }
 
 
