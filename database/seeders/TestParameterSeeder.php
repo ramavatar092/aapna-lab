@@ -1884,7 +1884,7 @@ class TestParameterSeeder extends Seeder
                         'test_name'     => 'Globulin',
                         'field'         => 'numeric',
                         'unit'          => 'g/dL',
-                        'range_min'     => 1,8,
+                        'range_min'     => 1.8,
                         'range_max'     => 3.6,
                         'type'          => 'single-field',
                         'children'      => [],
