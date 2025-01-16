@@ -111,4 +111,3 @@
     </script>
     @endscript
 </div>
-</div>
