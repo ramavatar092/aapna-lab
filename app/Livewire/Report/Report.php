@@ -29,7 +29,8 @@ class Report extends Component
             if ($test->test_id != null) {
                 foreach ($test->test->testParameter as $testParameter) {
                     $this->storedParameter[] = [
-                        'test_id' => $test->id,
+                        'test_id' => $test->test->id,
+                        'title'=>$test->test->title,
                         'parent_id' => $testParameter->parent_id ?? null,
                         'type' => $testParameter->type ?? null,
                         'test_name' => $testParameter->test_name ?? null,
@@ -50,6 +51,7 @@ class Report extends Component
 
                     // Initialize observed values for each parameter
                     $this->observedValues[] = '';
+                
                 }
             }
         }
@@ -75,6 +77,7 @@ class Report extends Component
 
 
             $savedData[] = [
+                'title' => $parameter['title'],
                 'patient_id' => $this->patientDetails->patient_id,
                 'bill_id' => $this->patientDetails->id,
                 'test_id' => $parameter['test_id'],
@@ -92,13 +95,16 @@ class Report extends Component
                 'custom_range' => $parameter['custom_range'],
                 'range_description' => $range_description, // Add the calculated range description
             ];
+           
         }
+   
 
 
 
         PatientReport::insert($savedData);
 
         session()->flash('message', 'Report saved successfully!');
+        $this->dispatch('success',__('Report saved successfully'));
     }
 
     public function render()

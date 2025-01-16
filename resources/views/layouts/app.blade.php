@@ -47,6 +47,8 @@
     <script src="{{asset("assets/js/config.js")}}"></script>
     @livewireStyles
 
+
+
 </head>
 <!-- Add Animation Styles -->
 <style>
@@ -123,6 +125,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
     @stack('scripts')
+
 
     <script>
         const toastSuccess = Swal.mixin({

@@ -13,8 +13,9 @@ return new class extends Migration
     {
         Schema::create('patient_reports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('bill_id'); // Add bill_id
-            $table->unsignedBigInteger('patient_id'); // Add patient_id
+            $table->unsignedBigInteger('bill_id'); 
+            $table->string('title')->nullable();
+            $table->unsignedBigInteger('patient_id');
             $table->unsignedBigInteger('test_id');
             $table->string('test_name');
             $table->string('observed_value')->nullable();
