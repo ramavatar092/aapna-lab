@@ -110,8 +110,6 @@ class Add extends Component
                     'amount' => $selected['amount'],
                     'created_at' => now(),
 
-
-
                 ];
             }
             PackageTest::insert($dataToInsert);

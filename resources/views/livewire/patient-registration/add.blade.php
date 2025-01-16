@@ -109,7 +109,7 @@
                 <!-- Email -->
                 <div class="col-md-6">
                     <label for="email" class="form-label">Email ID</label>
-                    <input type="email" wire:model.live="email" class="form-control" id="email" placeholder="Email ID" readonly>
+                    <input type="email" wire:model.live="email" class="form-control" id="email" placeholder="Email ID" >
                     @error('email')
                     <span class="error">{{ $message }}</span>
                     @enderror
@@ -148,7 +148,7 @@
                     <label for="organisation" class="form-label">Select Organisation</label>
                     <div class="d-flex">
                         <select class="form-select" wire:model="organisation" id="organisation">
-                            <option value="null" selected>Select Organisation</option>
+                            <option value="" selected>Select Organisation</option>
                             @foreach ($organisationlist as $org )
                             <option class="mb-4" value="{{$org->name}}">{{$org->name}}({{$org->ref_type}})</option>
 

@@ -4,10 +4,18 @@
     <div class="card mb-4 shadow-sm" style="border: none;">
         <div class="card-body">
             <div class="row">
-                <div class="col-md-3"><strong>Name:</strong> {{ $patientDetails->patient->user->name }} {{ $patientDetails->patient->user->lastname }}</div>
-                <div class="col-md-3"><strong>Gender:</strong> {{ $patientDetails->patient->user->gender }}</div>
-                <div class="col-md-3"><strong>Age:</strong> {{ $patientDetails->patient->age }} {{ $patientDetails->patient->age_type }}</div>
-                <div class="col-md-3"><strong>Status:</strong> <span class="text-success">{{ $patientDetails->status }}</span></div>
+                <div class="col-md-3">
+                    <strong>Name:</strong> {{ $patientDetails->patient->user->name }} {{ $patientDetails->patient->user->lastname }}
+                </div>
+                <div class="col-md-3">
+                    <strong>Gender:</strong> {{ $patientDetails->patient->user->gender }}
+                </div>
+                <div class="col-md-3">
+                    <strong>Age:</strong> {{ $patientDetails->patient->age }} {{ $patientDetails->patient->age_type }}
+                </div>
+                <div class="col-md-3">
+                    <strong>Status:</strong> <span class="text-success">{{ $patientDetails->status }}</span>
+                </div>
             </div>
 
             @if (session()->has('message'))
@@ -36,18 +44,36 @@
 
                         <!-- it will print the title and after it print the test parameter of it -->
                         @foreach ($groupedTests as $testTitle => $parameters)
+                        <!-- Test Title Row -->
                         <tr>
-                            <td style="padding:20px 9px" colspan="4" class="h4"><strong>{{ $testTitle }}</strong></td>
+                            <td colspan="5" style="padding: 16px ; white-space: nowrap;">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <!-- Test Title -->
+                                    <strong class="h4">{{ $testTitle }}</strong>
+
+
+
+                                    <div class="d-flex align-items-center" style="gap: 10px;">
+                                        <div class="d-flex align-items-center" style="gap: 5px;">
+                                        <input type="checkbox" wire:model.defer="interpretations.{{ $loop->index }}">
+                                        <span class="text-sm">Show Interpretation</span>
+                                        </div>
+                                        <button class="btn btn-sm btn-outline-primary">Comment</button>
+                                    </div>
+
+                                </div>
+                            </td>
                         </tr>
 
+
+                        <!-- Test Parameters -->
                         @foreach ($parameters as $index => $parameter)
                         <tr>
                             @if ($parameter['type'] != 'multiple-field')
-                                 <td style="padding: 5px 40px;">{{ $parameter['test_name'] }}</td>
+                            <td style="padding: 8px 40px;">{{ $parameter['test_parameter'] }}</td>
                             @else
-                                 <td style="padding: 10px 20px;"><strong>{{ $parameter['test_name'] }}</strong></td>
+                            <td style="padding: 16px 15px;"><strong>{{ $parameter['test_parameter'] }}</strong></td>
                             @endif
-
 
                             <td style="padding: 7px 15px;">
                                 @if ($parameter['type'] != 'multiple-field')
@@ -57,6 +83,7 @@
                                     wire:model.defer="observedValues.{{ $loop->parent->index * 100 + $index }}"
                                     placeholder="Enter value"
                                     style="border-radius: 8px; height: 38px; background-color: #f7f7f7;">
+
                                 @endif
                             </td>
                             <td style="padding: 5px 15px;">{{ $parameter['unit'] }}</td>
@@ -74,7 +101,6 @@
                         </tr>
                         @endforeach
                         @endforeach
-
                     </tbody>
                 </table>
             </div>

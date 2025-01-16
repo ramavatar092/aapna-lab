@@ -30,7 +30,6 @@
                         <th>{{ trans('cruds.department.fields.title') }}</th>
                         <th>{{ trans('cruds.department.fields.slug') }}</th>
                         <th>{{ trans('cruds.department.fields.description') }}</th>
-                        <th>{{ trans('cruds.department.fields.status') }}</th>
                         <th class="text-center">Actions</th>
                     </tr>
                 </thead>
@@ -41,17 +40,7 @@
                         <td>{{ $dept->title }}</td>
                         <td>{{ $dept->slug }}</td>
                         <td>{{ $dept->description }}</td>
-                        <td>
-                            @if ($dept->status)
-                            <a wire:click="updateStatus({{ $dept->id }})" class="text-success" title="Active">
-                                <i class="bi bi-toggle2-off fs-5"></i>
-                            </a>
-                            @else
-                            <a wire:click="updateStatus({{ $dept->id }})" class="text-danger" title="Inactive">
-                                <i class="bi bi-toggle2-on fs-5"></i>
-                            </a>
-                            @endif
-                        </td>
+                        
                         <td class="text-center">
                             <div class="d-flex justify-content-center gap-2">
                                 <a

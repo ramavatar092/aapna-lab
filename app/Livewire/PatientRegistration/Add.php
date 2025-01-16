@@ -110,7 +110,7 @@ class Add extends Component
         $sanitizedAppName = preg_replace('/[^a-zA-Z0-9]/', '', strtolower($appName));
 
         // Auto-generate email and password
-        $this->email = $value . '@' . $sanitizedAppName . '.com';
+        // $this->email = $value . '@' . $sanitizedAppName . '.com';
         $this->password = $value;
     }
   

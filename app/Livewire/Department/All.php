@@ -33,7 +33,7 @@ class All extends Component
     public function updateStatus($id)
     {
         $dept = Department::find($id);
-        $dept->status = !$dept->status;
+        $dept->status = !$dept->status; 
         $dept->save();
         $this->dispatch('success', __(trans('panel.message.status')));
         $this->dispatch('refresh-department');

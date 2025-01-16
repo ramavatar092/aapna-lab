@@ -13,12 +13,13 @@ return new class extends Migration
     {
         Schema::create('patient_reports', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('bill_id'); 
+            $table->foreignId('bill_id'); 
             $table->string('title')->nullable();
-            $table->unsignedBigInteger('patient_id');
-            $table->unsignedBigInteger('test_id');
-            $table->string('test_name');
-            $table->string('observed_value')->nullable();
+            $table->foreignId('patient_id');
+            $table->foreignId('test_id');
+            $table->string('interpretation_status')->default(false);
+            $table->string(column: 'test_parameter')->default('N/A')->nullable();
+            $table->string(column: 'observed_value')->nullable();
             $table->string('unit')->nullable();
             $table->string('field')->nullable();
             $table->string('range_operation')->nullable();
