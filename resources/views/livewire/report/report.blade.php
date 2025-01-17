@@ -108,8 +108,12 @@
             </div>
 
             <div class="d-flex justify-content-end mt-4">
+                <button type="button" class="btn btn-primary" wire:click="pdfPreview" data-bs-toggle="modal" data-bs-target="#thyroidModal">
+                    Preview Report
+                </button>
                 <button class="btn btn-primary btn-sm" wire:click="saveValues">Save Observed Values</button>
             </div>
         </div>
     </div>
+    <livewire:report.pdf-preview/>
 </div>

@@ -22,10 +22,10 @@ class Report extends Component
         $this->patientDetails = PatientBilling::with([
             'testbill.test.testParameter', //taking relation in the 'test' then 'testParameter' to perform egar loading
             'testbill.package.tests.testParameter' //taking relation of the 'package' then 'test' then 'testParameter'
-        ])->findOrFail($id); 
-        
-     
-        
+        ])->findOrFail($id);
+
+
+
         $this->Id = $id;
         $this->observedValues = [];
 
@@ -72,7 +72,6 @@ class Report extends Component
             // Initialize observed values
             $this->observedValues[] = '';
         }
-      
     }
     public function saveValues()
     {
@@ -90,7 +89,7 @@ class Report extends Component
             }
 
             // Prepare the data for updating or inserting
-            $data[] = [
+            $data = [
                 'test_id' => $parameter['test_id'],
                 'title' => $parameter['title'],
                 'patient_id' => $this->patientDetails->patient_id,
@@ -111,26 +110,42 @@ class Report extends Component
                 'range_description' => $range_description,
             ];
 
-           
-            
-        }  
-       
-       
-        PatientReport::insert($data);
-
-        // Mark the test bill as completed in patient billing table 
-       
+                
+            // Use updateOrInsert to handle both updating and inserting
+            PatientReport::updateOrCreate(
+                [
+                    'test_id' => $parameter['test_id'],
+                    'bill_id'=> $this->patientDetails->id,// Unique identifier for the record
+                    'patient_id' => $this->patientDetails->patient_id,
+                ],
+                $data
+            );
+        }
         
+
+        // Mark the test bill as completed in the patient billing table
         $this->BillStatus();
+
         session()->flash('message', 'Report saved successfully!');
         $this->dispatch('success', __('Report saved successfully'));
     }
-    public function BillStatus(){
-        
-        $patientDetails=PatientBilling::where('id',$this->Id)->update(['status' => 'completed']);
-        
+
+
+    public function pdfPreview()
+    {
+        $data = [
+            'patient_id' => $this->patientDetails->patient_id,
+            'bill_id' => $this->patientDetails->id,
+        ];
+
+        $this->dispatch('patient_details', $data);
     }
- 
+    public function BillStatus()
+    {
+
+        $patientDetails = PatientBilling::where('id', $this->Id)->update(['status' => 'completed']);
+    }
+
 
 
     public function render()
