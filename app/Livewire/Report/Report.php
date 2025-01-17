@@ -49,6 +49,9 @@ class Report extends Component
         foreach ($this->storedParameter as $index => $parameter) {
             $report = $existingReports->firstWhere('test_parameter', $parameter['test_parameter']);
             $this->observedValues[$index] = $report->observed_value ?? '';
+            $interpreteration = $existingReports->firstWhere('title', $parameter['title']);
+
+            $this->interpretations[$index] = $interpreteration->interpretation_status ?? false;
         }
     }
     public function processTest($test): void
