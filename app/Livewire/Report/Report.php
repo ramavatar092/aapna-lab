@@ -97,7 +97,7 @@ class Report extends Component
                 'bill_id' => $this->patientDetails->id,
                 'test_parameter' => $parameter['test_parameter'],
                 'observed_value' => $this->observedValues[$index] ?? null,
-                'interpretation_status' => $this->interpretations[$index] ?? false,
+                'interpretation_status' => $this->interpretations[$parameter['title']] ?? false,
                 'unit' => $parameter['unit'],
                 'field' => $parameter['field'],
                 'range_operation' => $parameter['range_operation'],
@@ -113,7 +113,7 @@ class Report extends Component
 
            
             
-        }
+        }  
        
        
         PatientReport::insert($data);

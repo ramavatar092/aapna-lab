@@ -44,27 +44,28 @@
 
                         <!-- it will print the title and after it print the test parameter of it -->
                         @foreach ($groupedTests as $testTitle => $parameters)
-                        
+
                         <!-- Test Title Row -->
                         <tr>
                             <td colspan="5" style="padding: 16px ; white-space: nowrap;">
                                 <div class="d-flex justify-content-between align-items-center">
                                     <!-- Test Title -->
                                     <strong class="h4">{{ $testTitle }}</strong>
-                                      @php
-                                      $getdata=$parameters->first();
-                                      @endphp              
+                                    @php
+                                    $getdata = $parameters->first();
+                                    @endphp
                                     <div class="d-flex align-items-center" style="gap: 10px;">
                                         <div class="d-flex align-items-center" style="gap: 5px;">
-                                        <input type="checkbox" wire:model.defer="interpretations.{{ $loop->index }}">
-                                        <span class="text-sm">Show Interpretation</span>
+                                            <input type="checkbox" wire:model.defer="interpretations.{{ $testTitle }}">
+                                            <span class="text-sm">Show Interpretation</span>
                                         </div>
-                                        <a href="{{route('admin.testfeature',$getdata['test_id'])}}" class="btn btn-sm btn-outline-primary">Comment</a>
+                                        <a href="{{ route('admin.testfeature', $getdata['test_id']) }}" class="btn btn-sm btn-outline-primary">Comment</a>
                                     </div>
-
                                 </div>
                             </td>
                         </tr>
+
+
 
 
                         <!-- Test Parameters -->
@@ -79,7 +80,7 @@
                             <td style="padding: 7px 15px;">
                                 @if ($parameter['type'] != 'multiple-field')
                                 <input
-                                    type="text"
+                                    type="number"
                                     class="form-control form-control-sm"
                                     wire:model.defer="observedValues.{{ $loop->parent->index * 100 + $index }}"
                                     placeholder="Enter value"
