@@ -25,26 +25,32 @@ class Report extends Component
         ])->findOrFail($id);
 
 
-
         $this->Id = $id;
         $this->observedValues = [];
 
-        // Process each test bill entry
+        // Retrieve existing patient reports
+        $existingReports = PatientReport::where('patient_id', $this->patientDetails->patient_id)
+            ->where('bill_id', $this->patientDetails->id)
+            ->get();
+
         foreach ($this->patientDetails->testbill as $testbill) {
             if ($testbill->test_id) {
-                // Individual test
-                $this->processTest($testbill->test); //call the function to and store testParameter by passing the parameter of the test
+                $this->processTest($testbill->test);
             }
 
             if ($testbill->package_id) {
-                // Tests in a package
-                foreach ($testbill->package->tests as $test) { //call the function to and store testParameter by passing the parameter of the package
+                foreach ($testbill->package->tests as $test) {
                     $this->processTest($test);
                 }
             }
         }
-    }
 
+        // Match existing observed values with stored parameters
+        foreach ($this->storedParameter as $index => $parameter) {
+            $report = $existingReports->firstWhere('test_parameter', $parameter['test_parameter']);
+            $this->observedValues[$index] = $report->observed_value ?? '';
+        }
+    }
     public function processTest($test): void
     {
         foreach ($test->testParameter as $testParameter) {
@@ -75,6 +81,13 @@ class Report extends Component
     }
     public function saveValues()
     {
+        // Remove existing records for the given patient_id and bill_id
+        PatientReport::where('patient_id', $this->patientDetails->patient_id)
+            ->where('bill_id', $this->patientDetails->id)
+            ->delete();
+
+        // Prepare data for insertion
+        $data = [];
         foreach ($this->storedParameter as $index => $parameter) {
             $range_description = null;
 
@@ -88,8 +101,7 @@ class Report extends Component
                 $range_description = $parameter['custom_range'];
             }
 
-            // Prepare the data for updating or inserting
-            $data = [
+            $data[] = [
                 'test_id' => $parameter['test_id'],
                 'title' => $parameter['title'],
                 'patient_id' => $this->patientDetails->patient_id,
@@ -108,20 +120,13 @@ class Report extends Component
                 'custom_option' => $parameter['custom_option'],
                 'custom_range' => $parameter['custom_range'],
                 'range_description' => $range_description,
+                'created_at' => now(),
+                'updated_at' => now(),
             ];
-
-                
-            // Use updateOrInsert to handle both updating and inserting
-            PatientReport::updateOrCreate(
-                [
-                    'test_id' => $parameter['test_id'],
-                    'bill_id'=> $this->patientDetails->id,// Unique identifier for the record
-                    'patient_id' => $this->patientDetails->patient_id,
-                ],
-                $data
-            );
         }
-        
+
+        // Insert the new data
+        PatientReport::insert($data);
 
         // Mark the test bill as completed in the patient billing table
         $this->BillStatus();
@@ -129,6 +134,8 @@ class Report extends Component
         session()->flash('message', 'Report saved successfully!');
         $this->dispatch('success', __('Report saved successfully'));
     }
+
+
 
 
     public function pdfPreview()
