@@ -126,12 +126,12 @@
                 @if(!$isGeneratingInvoice)
                 <div class="modal-footer justify-content-between">
                     <div class="d-flex gap-2 ">
-                    <button type="button" wire:click="$dispatch('update-billdetails',{id:{{$billdetails->id}}})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatebillingModal">
-                        Edit
-                    </button>
-                    <button type="button" wire:click="$dispatch('update-billdetails',{id:{{$billdetails->id}}})" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updatebillingModal">
-                        Enter Result
-                    </button>
+                        <button type="button" wire:click="$dispatch('update-billdetails',{id:{{$billdetails->id}}})" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#updatebillingModal">
+                            Edit
+                        </button>
+                        <button type="button" wire:click="$dispatch('update-billdetails',{id:{{$billdetails->id}}})" class="btn btn-secondary" data-bs-toggle="modal" data-bs-target="#updatebillingModal">
+                            Enter Result
+                        </button>
                     </div>
                     <div class="d-flex gap-2">
                         <button type="button" class="btn btn-success" wire:click="generateInvoice">Send</button>
@@ -145,20 +145,20 @@
 
         </div>
     </div>
-<script>
-    function printInvoice() {
-        // Get the modal content
-        const invoiceModal = document.querySelector('#invoiceModal .modal-content');
-        if (!invoiceModal) {
-            alert('Invoice content not found!');
-            return;
-        }
+    <script>
+        function printInvoice() {
+            // Get the modal content
+            const invoiceModal = document.querySelector('#invoiceModal .modal-content');
+            if (!invoiceModal) {
+                alert('Invoice content not found!');
+                return;
+            }
 
-        // Create a new window
-        const printWindow = window.open('', '_blank', 'width=800,height=600');
+            // Create a new window
+            const printWindow = window.open('', '_blank', 'width=800,height=600');
 
-        // Add the content to the new window
-        printWindow.document.write(`
+            // Add the content to the new window
+            printWindow.document.write(`
         <html>
             <head>
                 <title>Invoice</title>
@@ -206,15 +206,15 @@
         </html>
         `);
 
-        // Close the document to trigger styles rendering
-        printWindow.document.close();
+            // Close the document to trigger styles rendering
+            printWindow.document.close();
 
-        // Wait for the content to load, then print
-        printWindow.onload = function() {
-            printWindow.print();
-            printWindow.close();
-        };
-    }
-</script>
+            // Wait for the content to load, then print
+            printWindow.onload = function() {
+                printWindow.print();
+                printWindow.close();
+            };
+        }
+    </script>
 
 </div>
