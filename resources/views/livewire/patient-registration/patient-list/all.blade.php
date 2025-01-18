@@ -65,7 +65,7 @@
                         <span class="mb-1">{{ $testNames }}</span>
 
                     </div>
-                    <div class="col">₹{{ $patient->advanced_payment +$patient->due_payment}}</div>
+                    <div class="col">₹{{ $patient?->advanced_payment +$patient?->due_payment}}</div>
                     <div class="col">{{ \Carbon\Carbon::parse($patient->date)->format('d/m/Y h:i A') }}</div>
                     <div class="col">
                         @php $statusInfo = getStatus($patient->status); @endphp
