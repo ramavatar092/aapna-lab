@@ -107,8 +107,8 @@
                 </table>
             </div>
 
-            <div class="d-flex justify-content-end mt-4">
-                <button type="button" class="btn btn-primary" wire:click="pdfPreview" data-bs-toggle="modal" data-bs-target="#thyroidModal">
+            <div class="d-flex gap-3 justify-content-end mt-4">
+                <button type="button" class="btn btn-primary" wire:click="pdfPreview" data-bs-toggle="modal" data-bs-target="#reportModal">
                     Preview Report
                 </button>
                 <button class="btn btn-primary btn-sm" wire:click="saveValues">Save Observed Values</button>
