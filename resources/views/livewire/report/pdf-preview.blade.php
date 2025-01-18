@@ -69,7 +69,7 @@
       <!-- Modal Footer -->
       <div class="modal-footer" style="display: flex; justify-content: flex-end; gap: 10px; padding: 15px;">
         <button class="btn btn-primary" onclick="printReport()">Print</button>
-        <button class="btn btn-success">Send</button>
+        <button class="btn btn-success" wire:click="generatePdf">Send</button>
       </div>
     </div>
   </div>
