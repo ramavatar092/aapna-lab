@@ -92,6 +92,7 @@
                 'route' => 'admin.labMangement',
                 'children' => [
                     ['name' => 'Organisation List', 'route' => 'admin.labMangement'],
+                    ['name' => 'B2B','route'=>'admin.b2b'],
                     ['name' => 'Center', 'route' => 'admin.center'],
                     ['name' => 'Manage User', 'route' => 'admin.manageUser'],
                     ['name' => 'Sample Collector', 'route' => 'admin.sampleCollector'],
