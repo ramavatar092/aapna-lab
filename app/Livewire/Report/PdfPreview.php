@@ -29,57 +29,57 @@ class PdfPreview extends Component
     public function generatePdf()
     {
         try {
-            // Collect data for the PDF
-            $data = [
+           
+
+            // Render the HTML for the PDF
+            $html = view('pdf.report', [
                 'user' => $this->user,
-                'patientDetails' => $this->patientDetialsPdf,
-            ];
+                'patientDetialsPdf' => $this->patientDetialsPdf,
 
-            // Render the view as HTML
-            $html = view('pdf.report', $data)->render();
+            ])->render();
+            
 
-            // Validate the rendered HTML
+
             if (empty($html)) {
                 throw new \Exception('Failed to render HTML for the report.');
             }
 
             // Initialize mPDF
-            $mpdf = new \Mpdf\Mpdf([
-                'format' => 'A4',
-                'orientation' => 'P',
-                'margin_top' => 10,
-                'margin_right' => 10,
+            $mpdf = new Mpdf([
+                'format'        => 'A4',
+                'orientation'   => 'P',
+                'margin_top'    => 10,
+                'margin_right'  => 10,
                 'margin_bottom' => 10,
-                'margin_left' => 10,
+                'margin_left'   => 10,
             ]);
 
-            // Write HTML content to the PDF
             $mpdf->WriteHTML($html);
 
-            // Define a unique filename
-            $fileName = 'reports/report_' . $this->user->patient->user->mobile . '_' . time() . '.pdf';
-            $filePath = 'public/' . $fileName;
+            // Define a unique filename and storage path
+            $fileName = 'report_' . $this->user->patient->user->mobile . '_' . $this->bill_id . '.pdf';
+            $filePath = 'reports/' . $fileName;
 
-            // Save the PDF to the storage path
-            Storage::put($filePath, $mpdf->Output('', 'S'));
+            // Save the PDF to the storage disk
+            Storage::disk('public')->put($filePath, $mpdf->Output('', 'S'));
 
-            // Generate a public URL
-            $fileUrl = Storage::url($fileName);
+            // Generate a public URL for the file
+            $fileUrl = Storage::url($filePath);
 
-            // Retrieve the base URL from the .env file or fallback to app URL
-            $baseUrl = env('REPORT_BASE_URL', config('app.url'));
+            // Retrieve the base URL from the .env file (if needed)
+            $baseUrl = env('WHATSAPP_BASE_URL'); // Use the base app URL
             $fullUrl = $baseUrl . $fileUrl;
 
             // Prepare the WhatsApp message
-            $whatsappMessage = "Hello {$this->user->name},\n\n";
+            $whatsappMessage = "Hello {$this->user->patient->user->name},\n\n";
             $whatsappMessage .= "Your report is ready! You can download it using the link below:\n\n";
             $whatsappMessage .= $fullUrl . "\n\n";
-            $whatsappMessage .= "Thank you for choosing our service!";
+            $whatsappMessage .= "Thank you for choosing us!";
 
             // URL-encode the message
             $encodedMessage = urlencode($whatsappMessage);
 
-            // Generate the WhatsApp URL to send the message
+            // Generate the WhatsApp URL
             $whatsappLink = "https://wa.me/91{$this->user->patient->user->mobile}?text={$encodedMessage}";
 
             // Redirect to the WhatsApp link
@@ -90,6 +90,8 @@ class PdfPreview extends Component
             return response()->json(['error' => 'Error: ' . $e->getMessage()], 500);
         }
     }
+
+
 
     public function render()
     {

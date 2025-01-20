@@ -56,7 +56,7 @@ class BillPreview extends Component
             $mpdf->WriteHTML($html);
     
             // Define the storage path for the PDF
-            $fileName = 'billing_' . $this->billdetails->patient->user->mobile . '.pdf';
+            $fileName = 'billing_' . $this->billdetails->patient->user->mobile . $this->billdetails->id.'.pdf';
             $filePath = 'billing/' . $fileName;
     
             // Save the PDF file to the public disk
@@ -69,7 +69,7 @@ class BillPreview extends Component
             $fileUrl = Storage::url($filePath);
     
             // Retrieve the base URL from the .env file
-            $baseUrl = env('INVOICE_BASE_URL');
+            $baseUrl = env('WHATSAPP_BASE_URL');
     
             // Construct the full URL
             $fullUrl = $baseUrl . $fileUrl;
